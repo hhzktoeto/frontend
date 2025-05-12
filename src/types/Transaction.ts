@@ -1,4 +1,4 @@
-export type Transaction = {
+export interface Transaction {
     id: number;
     usedId: number;
     type: 'INCOME' | 'EXPENSE';
