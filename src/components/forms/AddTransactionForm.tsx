@@ -1,35 +1,16 @@
-import {getCategories} from "../../services/categoryService.ts";
-import type {Transaction, TransactionDTO} from "../../types/Transaction.ts";
-import {add} from "../../api/api.ts";
-import {ApiPath} from "../../api/ApiPath.ts";
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import type {TransactionDTO} from "../../types/Transaction.ts";
 import {useEffect, useRef} from "react";
+import {useCategoriesQuery, useCreateTransactionMutation} from "../../hooks/useTransactionHook";
 
 export default function AddTransactionForm() {
-    const typeRef = useRef<HTMLSelectElement>(null)
-    const categoryRef = useRef<HTMLInputElement>(null)
-    const amountRef = useRef<HTMLInputElement>(null)
-    const dateRef = useRef<HTMLInputElement>(null)
-    const descriptionRef = useRef<HTMLInputElement>(null)
+    const typeRef = useRef<HTMLSelectElement>(null);
+    const categoryRef = useRef<HTMLInputElement>(null);
+    const amountRef = useRef<HTMLInputElement>(null);
+    const dateRef = useRef<HTMLInputElement>(null);
+    const descriptionRef = useRef<HTMLInputElement>(null);
 
-    const queryClient = useQueryClient();
-
-    // categories - нужные мне данные, которые будут обновляться каждый раз, как будет вызван
-    // queryClient.invalidateQueries, по принципу:
-    // queryKey - ключ для того, чтобы определить какой компонент надо обновить. Указывается в функции invalidateQueries
-    // queryFn - то, какую функцию надо вызвать для обновления. То, какие данные вернёт getCategories будет определять, что хранится в categories
-    const {data: categories = []} = useQuery({
-        queryKey: ["categories"],
-        queryFn: getCategories,
-    });
-
-    const {mutate: createTransaction} = useMutation({
-        mutationFn: (dto: TransactionDTO) => add<TransactionDTO, Transaction>(ApiPath.Transactions, dto),
-        onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ["categories"]});
-            queryClient.invalidateQueries({queryKey: ["transactions"]});
-        }
-    })
+    const {data: categories = []} = useCategoriesQuery();
+    const {mutate: createTransaction} = useCreateTransactionMutation();
 
     useEffect(() => {
         if (dateRef.current) {

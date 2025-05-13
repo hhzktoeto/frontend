@@ -11,9 +11,8 @@ import RecentTransactionsForm from "./forms/RecentTransactionsForm.tsx";
 import {useState} from "react";
 
 const mainTab: string = "Главная";
-const planTab: string = "Планировщик"
 const statsTab: string = "Статистика";
-const tabsNames = [mainTab, planTab, statsTab] as const;
+const tabsNames = [mainTab, statsTab] as const;
 type Tab = typeof tabsNames[number]
 
 export default function Dashboard() {
@@ -56,11 +55,6 @@ export default function Dashboard() {
                         <div className="bg-white rounded-xl shadow-md overflow-hidden">
                             <RecentTransactionsForm/>
                         </div>
-                    </>
-                )}
-
-                {activeTab === planTab && (
-                    <>
                     </>
                 )}
 

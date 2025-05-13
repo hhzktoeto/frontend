@@ -40,11 +40,11 @@ export default function MonthlyOverviewChart() {
                     width="100%"
                     series={[
                         {
-                            name: 'Income',
+                            name: 'Доход',
                             data: [3500, 3700, 3900, 3450, 4100, 4250]
                         },
                         {
-                            name: 'Expenses',
+                            name: 'Расход',
                             data: [2100, 2350, 2700, 2450, 2650, 2846]
                         }
                     ]}
@@ -65,7 +65,7 @@ export default function MonthlyOverviewChart() {
                                 borderRadius: 6
                             },
                         },
-                        colors: ['primary-500', 'neutral-500'],
+                        colors: ['rgba(83,178,73,0.95)', 'rgba(220,91,91,0.95)'],
                         xaxis: {
                             categories: ['June', 'July', 'August', 'September', 'October', 'November'],
                         },
