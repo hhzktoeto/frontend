@@ -1,15 +1,11 @@
-import type {Category} from "../types/Category.ts";
-import {getAllCategories} from "./api.ts";
+import type {Category, CategoryDTO} from "../types/Category.ts";
+import {add, getAll} from "../api/api.ts";
+import {ApiPath} from "../api/ApiPath.ts";
 
-let categoryCache: Category[] = [];
-
-export async function getCategories(): Promise<Category[]> {
-    if (categoryCache.length === 0) {
-        await updateCategories()
-    }
-    return categoryCache
+export async function getCategories(): Promise<Array<Category>> {
+    return getAll<Category>(ApiPath.Categories);
 }
 
-export async function updateCategories(): Promise<void> {
-    categoryCache = await getAllCategories()
+export async function createNewCategory(category: CategoryDTO): Promise<Category> {
+    return add<CategoryDTO, Category>(ApiPath.Categories, category)
 }

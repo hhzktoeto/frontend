@@ -1,26 +1,37 @@
-import {useEffect, useRef, useState} from "react";
-import type {Category} from "../../types/Category.ts";
-import {addTransaction} from "../../services/transactionsService.ts";
 import {getCategories} from "../../services/categoryService.ts";
-
-export interface TransactionForm {
-    type: string;
-    category: string;
-    amount: number;
-    date: string;
-    description: string;
-}
+import type {Transaction, TransactionDTO} from "../../types/Transaction.ts";
+import {add} from "../../api/api.ts";
+import {ApiPath} from "../../api/ApiPath.ts";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {useEffect, useRef} from "react";
 
 export default function AddTransactionForm() {
     const typeRef = useRef<HTMLSelectElement>(null)
-    const categoryRef = useRef<HTMLSelectElement>(null)
+    const categoryRef = useRef<HTMLInputElement>(null)
     const amountRef = useRef<HTMLInputElement>(null)
     const dateRef = useRef<HTMLInputElement>(null)
     const descriptionRef = useRef<HTMLInputElement>(null)
-    const [categories, setCategories] = useState<Category[]>([]);
+
+    const queryClient = useQueryClient();
+
+    // categories - нужные мне данные, которые будут обновляться каждый раз, как будет вызван
+    // queryClient.invalidateQueries, по принципу:
+    // queryKey - ключ для того, чтобы определить какой компонент надо обновить. Указывается в функции invalidateQueries
+    // queryFn - то, какую функцию надо вызвать для обновления. То, какие данные вернёт getCategories будет определять, что хранится в categories
+    const {data: categories = []} = useQuery({
+        queryKey: ["categories"],
+        queryFn: getCategories,
+    });
+
+    const {mutate: createTransaction} = useMutation({
+        mutationFn: (dto: TransactionDTO) => add<TransactionDTO, Transaction>(ApiPath.Transactions, dto),
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ["categories"]});
+            queryClient.invalidateQueries({queryKey: ["transactions"]});
+        }
+    })
 
     useEffect(() => {
-        getCategories().then(setCategories);
         if (dateRef.current) {
             dateRef.current.value = new Date().toISOString().split("T")[0];
         }
@@ -43,14 +54,18 @@ export default function AddTransactionForm() {
                             </div>
                             <div>
                                 <label className="block text-xs text-gray-500 mb-1">Категория</label>
-                                <select ref={categoryRef}
-                                        className="w-full p-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
+                                <input
+                                    list="categories"
+                                    ref={categoryRef}
+                                    className="w-full p-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400"/>
+                                <datalist id="categories"
+                                          className="w-full p-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
                                     {
                                         categories.map(category => {
-                                            return <option key={category.id}>{category.name}</option>
+                                            return <option key={category.id} value={category.name}/>
                                         })
                                     }
-                                </select>
+                                </datalist>
                             </div>
                             <div>
                                 <label className="block text-xs text-gray-500 mb-1">Сумма</label>
@@ -81,13 +96,15 @@ export default function AddTransactionForm() {
                         onClick={
                             async () => {
                                 try {
-                                    await addTransaction({
-                                        type: String(typeRef.current?.value),
+                                    const type: string = typeRef.current?.value === "Расход" ? "EXPENSE" : "INCOME";
+                                    const dto: TransactionDTO = {
+                                        type: type,
                                         category: String(categoryRef.current?.value),
                                         amount: Number(amountRef.current?.value),
                                         date: String(dateRef.current?.value),
                                         description: String(descriptionRef.current?.value)
-                                    });
+                                    }
+                                    createTransaction(dto);
                                 } catch (error) {
                                     console.error("Ошибка во время добавления транзакции:", error)
                                 }

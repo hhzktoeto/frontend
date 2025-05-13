@@ -7,3 +7,11 @@ export interface Transaction {
     amount: number;
     description: string;
 }
+
+export interface TransactionDTO {
+    type: string;
+    category: string;
+    date: string;
+    amount: number;
+    description: string;
+}
