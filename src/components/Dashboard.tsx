@@ -1,7 +1,7 @@
 import Header from "./Header.tsx";
 import AddTransaction from "./forms/AddTransaction.tsx";
 import CurrentBalance from "./cards/CurrentBalance.tsx";
-import Income from "./cards/Income.tsx";
+import Incomes from "./cards/Incomes.tsx";
 import Expenses from "./cards/Expenses.tsx";
 import MonthlyOverview from "./charts/MonthlyOverview.tsx";
 import CategoriesSpending from "./charts/CategoriesSpending.tsx";
@@ -48,7 +48,7 @@ export default function Dashboard() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                             <CurrentBalance/>
-                            <Income/>
+                            <Incomes/>
                             <Expenses/>
                         </div>
 

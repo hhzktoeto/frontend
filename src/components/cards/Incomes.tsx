@@ -1,4 +1,17 @@
-export default function Income() {
+import {useTransactionsQuery} from "../../hooks/useTransactionHook";
+import {useMemo} from "react";
+
+export default function Incomes() {
+    const {data: transactions = []} = useTransactionsQuery();
+
+    const totalAmount = useMemo(() => {
+        return transactions
+            .filter(transaction => transaction.type === "INCOME")
+            .reduce((sum, transaction) => {
+                return sum + transaction.amount;
+            }, 0);
+    }, [transactions]);
+
     return (
         <div
             className="bg-white p-5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
@@ -6,7 +19,7 @@ export default function Income() {
                 <h2 className="text-xl font-semibold">Доходы</h2>
                 <span className="material-symbols-outlined text-green-500">trending_up</span>
             </div>
-            <p className="text-3xl font-bold mb-2">$4,250.00</p>
+            <p className="text-3xl font-bold mb-2">{totalAmount}</p>
             <div className="flex items-center text-green-500">
                 <span className="material-symbols-outlined text-sm mr-1">arrow_upward</span>
                 <span className="text-sm">+$750 from last month</span>
