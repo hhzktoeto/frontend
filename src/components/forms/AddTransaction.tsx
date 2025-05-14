@@ -2,7 +2,7 @@ import type {TransactionDTO} from "../../types/Transaction.ts";
 import {useEffect, useRef} from "react";
 import {useCategoriesQuery, useCreateTransactionMutation} from "../../hooks/useTransactionHook";
 
-export default function AddTransactionForm() {
+export default function AddTransaction() {
     const typeRef = useRef<HTMLSelectElement>(null);
     const categoryRef = useRef<HTMLInputElement>(null);
     const amountRef = useRef<HTMLInputElement>(null);
@@ -28,7 +28,7 @@ export default function AddTransactionForm() {
                             <div>
                                 <label className="block text-xs text-gray-500 mb-1">Тип</label>
                                 <select ref={typeRef}
-                                        className="w-full p-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
+                                        className="w-full p-2 border hover:bg-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
                                     <option>Расход</option>
                                     <option>Доход</option>
                                 </select>
@@ -81,7 +81,7 @@ export default function AddTransactionForm() {
                                     const dto: TransactionDTO = {
                                         type: type,
                                         category: String(categoryRef.current?.value),
-                                        amount: Number(amountRef.current?.value),
+                                        amount: Number(Number(amountRef.current?.value).toFixed(2)),
                                         date: String(dateRef.current?.value),
                                         description: String(descriptionRef.current?.value)
                                     }

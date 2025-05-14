@@ -1,13 +1,13 @@
 import Header from "./Header.tsx";
-import AddTransactionForm from "./forms/AddTransactionForm.tsx";
-import BalanceCard from "./cards/BalanceCard.tsx";
-import IncomeCard from "./cards/IncomeCard.tsx";
-import ExpensesCard from "./cards/ExpensesCard.tsx";
-import MonthlyOverviewChart from "./charts/MonthlyOverviewChart.tsx";
-import CategoriesChart from "./charts/CategoriesChart.tsx";
+import AddTransaction from "./forms/AddTransaction.tsx";
+import CurrentBalance from "./cards/CurrentBalance.tsx";
+import Income from "./cards/Income.tsx";
+import Expenses from "./cards/Expenses.tsx";
+import MonthlyOverview from "./charts/MonthlyOverview.tsx";
+import CategoriesSpending from "./charts/CategoriesSpending.tsx";
 import BudgetProgress from "./BudgetProgress.tsx";
 import CategoryDetails from "./CategoryDetails.tsx";
-import RecentTransactionsForm from "./forms/RecentTransactionsForm.tsx";
+import TransactionsHistory from "./forms/TransactionsHistory.tsx";
 import {useState} from "react";
 
 const mainTab: string = "Главная";
@@ -43,17 +43,17 @@ export default function Dashboard() {
                 {activeTab === mainTab && (
                     <>
                         <div className="bg-white rounded-xl shadow-md overflow-hidden mb-8">
-                            <AddTransactionForm/>
+                            <AddTransaction/>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                            <BalanceCard/>
-                            <IncomeCard/>
-                            <ExpensesCard/>
+                            <CurrentBalance/>
+                            <Income/>
+                            <Expenses/>
                         </div>
 
                         <div className="bg-white rounded-xl shadow-md overflow-hidden">
-                            <RecentTransactionsForm/>
+                            <TransactionsHistory/>
                         </div>
                     </>
                 )}
@@ -65,8 +65,8 @@ export default function Dashboard() {
                             <CategoryDetails/>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <MonthlyOverviewChart/>
-                            <CategoriesChart/>
+                            <MonthlyOverview/>
+                            <CategoriesSpending/>
                         </div>
                     </>
                 )}

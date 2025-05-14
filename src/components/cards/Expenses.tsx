@@ -1,4 +1,4 @@
-export default function ExpensesCard() {
+export default function Expenses() {
     return (
         <div
             className="bg-white p-5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">

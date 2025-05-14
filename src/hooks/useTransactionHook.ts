@@ -15,7 +15,8 @@ export function useCategoriesQuery() {
 export function useTransactionsQuery() {
     return useQuery({
         queryKey: QueryKey.Transactions,
-        queryFn: transactionService.getAll
+        queryFn: transactionService.getAll,
+        staleTime: Infinity
     })
 }
 

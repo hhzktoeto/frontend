@@ -1,6 +1,6 @@
 import Chart from "react-apexcharts";
 
-export default function MonthlyOverviewChart() {
+export default function MonthlyOverview() {
     return (
         <div className="md:col-span-2 bg-white p-5 rounded-xl shadow-md">
             <div className="flex justify-between items-center mb-6">
@@ -33,7 +33,7 @@ export default function MonthlyOverviewChart() {
                     </details>
                 </div>
             </div>
-            <div className="h-[300px]">
+            <div>
                 <Chart
                     type="bar"
                     height={280}
@@ -52,7 +52,8 @@ export default function MonthlyOverviewChart() {
                         chart: {
                             stacked: false,
                             toolbar: {
-                                show: false
+                                show: true,
+                                offsetX: 10
                             },
                             zoom: {
                                 enabled: false
@@ -61,23 +62,23 @@ export default function MonthlyOverviewChart() {
                         plotOptions: {
                             bar: {
                                 horizontal: false,
-                                columnWidth: '60%',
-                                borderRadius: 6
+                                columnWidth: '50%',
+                                borderRadius: 4
                             },
                         },
-                        colors: ['rgba(83,178,73,0.95)', 'rgba(220,91,91,0.95)'],
+                        colors: ['rgba(151,208,144,0.95)', 'rgba(224,140,140,0.95)'],
                         xaxis: {
                             categories: ['June', 'July', 'August', 'September', 'October', 'November'],
                         },
                         legend: {
-                            position: 'top',
+                            position: 'bottom',
                             horizontalAlign: 'right'
                         },
                         dataLabels: {
                             enabled: false
                         },
                         grid: {
-                            borderColor: '#f1f1f1'
+                            borderColor: '#e8e8e8'
                         },
                         tooltip: {
                             shared: true,
@@ -86,7 +87,6 @@ export default function MonthlyOverviewChart() {
                     }}
                 />
             </div>
-            {/* Next: "Add income vs expense line chart" */}
         </div>
     );
 }

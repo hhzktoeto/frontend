@@ -1,6 +1,6 @@
 import Chart from "react-apexcharts";
 
-export default function CategoriesChart() {
+export default function CategoriesSpending() {
     return (
         <div className="bg-white p-5 rounded-xl shadow-md">
             <h2 className="text-xl font-semibold mb-4">Spending Categories</h2>
