@@ -15,3 +15,12 @@ export interface TransactionDTO {
     amount: number;
     description: string;
 }
+
+export const TransactionFieldName = {
+    Category: "Категория",
+    Type: "Тип",
+    Date: "Дата",
+    Amount: "Сумма",
+    Description: "Описание"
+}
+export type TransactionFieldName = typeof TransactionFieldName[keyof typeof TransactionFieldName]

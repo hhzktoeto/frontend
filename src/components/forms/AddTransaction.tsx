@@ -1,6 +1,6 @@
 import type {TransactionDTO} from "../../types/Transaction.ts";
 import {useEffect, useRef} from "react";
-import {useCategoriesQuery, useCreateTransactionMutation} from "../../hooks/useTransactionHook";
+import {categoriesQuery, createTransactionMutation} from "../../hooks/transactions.ts";
 
 export default function AddTransaction() {
     const typeRef = useRef<HTMLSelectElement>(null);
@@ -9,8 +9,8 @@ export default function AddTransaction() {
     const dateRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
 
-    const {data: categories = []} = useCategoriesQuery();
-    const {mutate: createTransaction} = useCreateTransactionMutation();
+    const {data: categories = []} = categoriesQuery();
+    const {mutate: createTransaction} = createTransactionMutation();
 
     useEffect(() => {
         if (dateRef.current) {

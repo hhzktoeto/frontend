@@ -10,6 +10,10 @@ class TransactionService {
     async getAll(): Promise<Array<Transaction>> {
         return await api.getAll<Transaction>(ApiPath.Transactions);
     }
+
+    async delete(id: number): Promise<void> {
+        return await api.delete(ApiPath.Transactions, id);
+    }
 }
 
 export const transactionService = new TransactionService();

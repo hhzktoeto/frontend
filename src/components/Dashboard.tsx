@@ -9,67 +9,89 @@ import BudgetProgress from "./BudgetProgress.tsx";
 import CategoryDetails from "./CategoryDetails.tsx";
 import TransactionsHistory from "./forms/TransactionsHistory.tsx";
 import {useState} from "react";
+import {ShowPeriod} from "../util/TransactionsUtils.ts";
+import {showPeriodMutation} from "../hooks/showPeriod.ts";
 
-const mainTab: string = "Главная";
-const statsTab: string = "Статистика";
-const tabsNames = [mainTab, statsTab] as const;
-type Tab = typeof tabsNames[number]
+const Tab = {
+    Main: "Главная",
+    Stats: "Статистика"
+};
+
+type Tab = typeof Tab[keyof typeof Tab];
 
 export default function Dashboard() {
-    const [activeTab, setActiveTab] = useState<Tab>(mainTab)
+    const [activeTab, setActiveTab] = useState<Tab>(Tab.Main);
+    const {mutate: changeShowPeriod} = showPeriodMutation();
 
     return (
         <div id="webcrumbs">
             <div className="w-full p-6 bg-gradient-to-br from-slate-50 to-slate-100 font-sans rounded-xl shadow-lg">
                 <Header/>
 
-                <div className="flex space-x-4 mb-4">
+                <div className="flex space-x-4 mb-4 gap-2">
                     {
-                        tabsNames.map(tabName => (
-                            <button
-                                key={tabName}
-                                className={`px-4 py-2 rounded-full text-sm font-medium mb-2 ${
-                                    activeTab === tabName
-                                        ? "bg-primary-600 text-white shadow-md"
-                                        : "bg-gray-200 text-gray-600 hover:bg-gray-200"
-                                }`}
-                                onClick={() => setActiveTab(tabName)}>
-                                {tabName}
-                            </button>
-                        ))
+                        Object.values(Tab).map(tab => {
+                            return (
+                                <button
+                                    key={tab}
+                                    className={`px-4 py-2 rounded-full text-sm font-medium mb-2 ${
+                                        activeTab === tab
+                                            ? "bg-primary-600 text-white shadow-md"
+                                            : "bg-gray-200 text-gray-600 hover:bg-gray-200"
+                                    }`}
+                                    onClick={() => setActiveTab(tab)}>
+                                    {tab}
+                                </button>
+                            );
+                        })
                     }
+                    <div className="flex-grow flex justify-end">
+                        <select
+                            onChange={(e) => changeShowPeriod(e.target.value as ShowPeriod)}
+                            className="w-auto py-2 px-2 border rounded-lg text-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-400">
+                            {
+                                Object.values(ShowPeriod).map(option =>
+                                    <option key={option}>{option}</option>
+                                )
+                            }
+                        </select>
+                    </div>
                 </div>
 
-                {activeTab === mainTab && (
-                    <>
-                        <div className="bg-white rounded-xl shadow-md overflow-hidden mb-8">
-                            <AddTransaction/>
-                        </div>
+                {
+                    activeTab === Tab.Main && (
+                        <>
+                            <div className="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+                                <AddTransaction/>
+                            </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                             <CurrentBalance/>
-                            <Incomes/>
-                            <Expenses/>
-                        </div>
+                                <Incomes/>
+                                <Expenses/>
+                            </div>
 
-                        <div className="bg-white rounded-xl shadow-md overflow-hidden">
-                            <TransactionsHistory/>
-                        </div>
-                    </>
-                )}
+                            <div className="bg-white rounded-xl shadow-md overflow-hidden">
+                                <TransactionsHistory/>
+                            </div>
+                        </>
+                    )
+                }
 
-                {activeTab === statsTab && (
-                    <>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                            <BudgetProgress/>
-                            <CategoryDetails/>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <MonthlyOverview/>
-                            <CategoriesSpending/>
-                        </div>
-                    </>
-                )}
+                {
+                    activeTab === Tab.Stats && (
+                        <>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                <BudgetProgress/>
+                                <CategoryDetails/>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                                <MonthlyOverview/>
+                                <CategoriesSpending/>
+                            </div>
+                        </>
+                    )
+                }
             </div>
         </div>
     )

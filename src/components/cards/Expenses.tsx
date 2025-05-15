@@ -1,8 +1,8 @@
-import {useTransactionsQuery} from "../../hooks/useTransactionHook";
+import {transactionsQuery} from "../../hooks/transactions.ts";
 import {useMemo} from "react";
 
 export default function Expenses() {
-    const {data: transactions = []} = useTransactionsQuery();
+    const {data: transactions = []} = transactionsQuery();
 
     const totalAmount = useMemo(() => {
         return transactions

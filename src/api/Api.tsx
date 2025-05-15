@@ -15,6 +15,11 @@ class Api {
         const response = await this.client.post(path, data);
         return response.data;
     }
+
+    async delete(path: ApiPath, id: number): Promise<void> {
+        const response = await this.client.delete(path.concat(`/${id}`))
+        return response.data;
+    }
 }
 
 export const api = new Api();
