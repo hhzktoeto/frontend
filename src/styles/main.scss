@@ -1,0 +1,106 @@
+@use "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+// Base
+@import "./base/base";
+
+// Utilities
+@import "./utilities/colors";
+@import "./utilities/spacing";
+@import "./utilities/layout";
+@import "./utilities/effects";
+@import "./utilities/transitions";
+
+// Hover states
+.hover\:-translate-y-1:hover {
+    --tw-translate-y: -4px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate))
+    skewX(var(--tw-skew-x))
+    skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x))
+    scaleY(var(--tw-scale-y));
+}
+
+.hover\:scale-105:hover {
+    --tw-scale-x: 1.05;
+    --tw-scale-y: 1.05;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate))
+    skewX(var(--tw-skew-x))
+    skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x))
+    scaleY(var(--tw-scale-y));
+}
+
+.hover\:bg-blue-200:hover { background-color: rgb(191 219 254); }
+.hover\:bg-gray-100:hover { background-color: rgb(243 244 246); }
+.hover\:bg-gray-200:hover { background-color: rgb(229 231 235); }
+.hover\:bg-gray-50:hover { background-color: rgb(249 250 251); }
+.hover\:bg-green-200:hover { background-color: rgb(187 247 208); }
+.hover\:bg-primary-700:hover { background-color: rgb(70 76 153); }
+.hover\:bg-red-200:hover { background-color: rgb(254 202 202); }
+.hover\:text-primary-700:hover { color: rgb(70 76 153); }
+.hover\:text-red:hover { color: darkred; }
+.hover\:shadow-lg:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+// Focus states
+.focus\:outline-none:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.focus\:ring-2:focus {
+    --tw-ring-offset-shadow: 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.focus\:ring-primary-400:focus {
+    --tw-ring-color: rgb(104 114 230);
+}
+
+// Group states
+.group[open] .group-open\:rotate-180 {
+    --tw-rotate: 180deg;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate))
+    skewX(var(--tw-skew-x))
+    skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x))
+    scaleY(var(--tw-scale-y));
+}
+
+.group:hover .group-hover\:block {
+    display: block;
+}
+
+.group:hover .group-hover\:rotate-45 {
+    --tw-rotate: 45deg;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate))
+    skewX(var(--tw-skew-x))
+    skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x))
+    scaleY(var(--tw-scale-y));
+}
+
+// Media queries
+@media (min-width: 768px) {
+    .md\:col-span-2 { grid-column: span 2; }
+    .md\:col-span-3 { grid-column: span 3; }
+    .md\:col-span-4 { grid-column: span 4; }
+    .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+    .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

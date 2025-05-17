@@ -1,0 +1,32 @@
+// Shadows
+.shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+// Outline
+.outline-none {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+// Transform
+.transform {
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate))
+    skewX(var(--tw-skew-x))
+    skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x))
+    scaleY(var(--tw-scale-y));
+}
+
+// Cursor
+.cursor-pointer { cursor: pointer; }
+
+// List
+.list-none { list-style-type: none; }
