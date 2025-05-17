@@ -1,6 +1,7 @@
 import {Component, computed, inject} from '@angular/core';
 import {StoreService} from "../../services/store.service";
 import {CommonModule} from "@angular/common";
+import {TransactionUtils} from "../../utils/transactions.utils";
 
 @Component({
     standalone: true,
@@ -13,8 +14,9 @@ export class CurrentBalanceComponent {
     private readonly storeService = inject(StoreService);
 
     readonly totalAmount = computed(() => {
-        return this.storeService.transactions()
-            .reduce((sum, transaction) => {
+        const transactions = this.storeService.transactionsSig();
+        const filtered = TransactionUtils.filter(transactions, this.storeService.showPeriodSig());
+        return filtered.reduce((sum, transaction) => {
                 return transaction.type === "INCOME"
                     ? sum + transaction.amount
                     : sum - transaction.amount;

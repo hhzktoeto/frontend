@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {TabName} from '../../constants/tab-name';
 import {CommonModule} from '@angular/common';
 import {HeaderComponent} from '../header/header.component';
@@ -8,6 +8,7 @@ import {CurrentBalanceComponent} from "../current-balance/current-balance.compon
 import {TotalExpensesComponent} from "../total-expenses/total-expenses.component";
 import {TotalIncomesComponent} from "../total-incomes/total-incomes.component";
 import {TransactionsHistoryComponent} from "../transactions-history/transactions-history.component";
+import {StoreService} from "../../services/store.service";
 
 @Component({
     standalone: true,
@@ -17,15 +18,16 @@ import {TransactionsHistoryComponent} from "../transactions-history/transactions
     styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-    activeTab: TabName = TabName.MAIN;
-    currentShowPeriod: ShowPeriod = ShowPeriod.CURRENT_MONTH
+    private readonly storeService = inject(StoreService);
+
+    activeTab = TabName.MAIN;
 
     setTab(tab: string): void {
         this.activeTab = tab as TabName;
     }
 
     changeShowPeriod(period: string): void {
-        this.currentShowPeriod = period as ShowPeriod;
+        this.storeService.updateShowPeriod(period as ShowPeriod);
     }
 
     protected readonly TabName = TabName;

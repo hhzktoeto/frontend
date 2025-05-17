@@ -25,7 +25,7 @@ export class AddTransactionComponent {
         description: [""]
     })
 
-    categoriesSig = this.storeService.categories
+    categoriesSig = this.storeService.categoriesSig
     errorMessage = signal<string | null>(null);
     isLoading = signal(false);
 

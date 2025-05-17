@@ -10,7 +10,7 @@ export interface SortingRules {
 
 export class TransactionUtils {
 
-    static filter(transactions: Array<Transaction>, showPeriod: ShowPeriod): Array<Transaction> {
+    static filter(transactions: Transaction[], showPeriod: ShowPeriod): Transaction[] {
         console.log("Filtering transactions :", showPeriod)
         const now = new Date();
         const currentMonth = now.getMonth();
@@ -39,16 +39,12 @@ export class TransactionUtils {
             case ShowPeriod.CURRENT_YEAR:
                 return transactions.filter(transaction => new Date(transaction.date).getFullYear() === currentYear);
 
-            case ShowPeriod.CUSTOM:
-                // TODO: Добавить выбор кастомного периода
-                return transactions;
-
             default:
                 return transactions;
         }
     }
 
-    static sort(transactions: Array<Transaction>, rules: SortingRules): Array<Transaction> {
+    static sort(transactions: Transaction[], rules: SortingRules): Transaction[] {
         return [...transactions].sort((a, b) => {
             let compare = 0;
 

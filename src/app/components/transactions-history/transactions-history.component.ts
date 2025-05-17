@@ -18,7 +18,8 @@ import {NgIf} from "@angular/common";
 export class TransactionsHistoryComponent {
     private readonly storeService = inject(StoreService);
 
-    readonly transactionsSig = this.storeService.transactions;
+    readonly transactionsSig = this.storeService.transactionsSig;
+    readonly showPeriodSig = this.storeService.showPeriodSig;
     readonly hoveredIdSig = signal<number | null>(null);
 
     sortingSig = signal<SortingRules>({
@@ -28,7 +29,8 @@ export class TransactionsHistoryComponent {
 
     readonly transactions = computed(() => {
         console.log("sorting transactions history by", this.sortingSig())
-        return TransactionUtils.sort(this.transactionsSig(), this.sortingSig())
+        const filtered = TransactionUtils.filter(this.transactionsSig(), this.showPeriodSig());
+        return TransactionUtils.sort(filtered, this.sortingSig())
     })
 
     toggleSorting(fieldName: string): void {
