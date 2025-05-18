@@ -1,0 +1,35 @@
+.bg-dark-1 { background-color: var(--dark1); }
+.bg-dark-2 { background-color: var(--dark2); }
+.bg-dark-3 { background-color: var(--dark3); }
+.bg-dark-4 { background-color: var(--dark4); }
+.bg-light-1 { background-color: var(--light1); }
+.bg-light-2 { background-color: var(--light2); }
+.bg-light-3 { background-color: var(--light3); }
+.bg-blue-1 { background-color: var(--blue1) }
+.bg-blue-2 { background-color: var(--blue2) }
+.bg-blue-3 { background-color: var(--blue3) }
+.bg-blue-4 { background-color: var(--blue4) }
+.bg-red { background-color: var(--red) }
+.bg-orange { background-color: var(--orange) }
+.bg-yellow { background-color: var(--yellow) }
+.bg-green { background-color: var(--purple) }
+.bg-purple { background-color: var(--purple) }
+.bg-transparent{ background-color: transparent }
+
+.hover\:bg-dark-1:hover { background-color: var(--dark1); }
+.hover\:bg-dark-2:hover { background-color: var(--dark2); }
+.hover\:bg-dark-3:hover { background-color: var(--dark3); }
+.hover\:bg-dark-4:hover { background-color: var(--dark4); }
+.hover\:bg-light-1:hover { background-color: var(--light1); }
+.hover\:bg-light-2:hover { background-color: var(--light2); }
+.hover\:bg-light-3:hover { background-color: var(--light3); }
+.hover\:bg-blue-1:hover { background-color: var(--blue1) }
+.hover\:bg-blue-2:hover { background-color: var(--blue2) }
+.hover\:bg-blue-3:hover { background-color: var(--blue3) }
+.hover\:bg-blue-4:hover { background-color: var(--blue4) }
+.hover\:bg-red:hover { background-color: var(--red) }
+.hover\:bg-orange:hover { background-color: var(--orange) }
+.hover\:bg-yellow:hover { background-color: var(--yellow) }
+.hover\:bg-green:hover { background-color: var(--purple) }
+.hover\:bg-purple:hover { background-color: var(--purple) }
+.hover\:bg-transparent:hover{ background-color: transparent }
