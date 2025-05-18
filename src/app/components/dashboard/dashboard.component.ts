@@ -14,8 +14,7 @@ import {StoreService} from "../../services/store.service";
     standalone: true,
     selector: 'app-dashboard',
     imports: [CommonModule, HeaderComponent, AddTransactionComponent, CurrentBalanceComponent, TotalExpensesComponent, TotalIncomesComponent, TransactionsHistoryComponent],
-    templateUrl: './dashboard.component.html',
-    styleUrl: './dashboard.component.scss'
+    templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent {
     private readonly storeService = inject(StoreService);

@@ -7,8 +7,7 @@ import {TransactionUtils} from "../../utils/transactions.utils";
     standalone: true,
     selector: 'app-current-balance',
     imports: [CommonModule],
-    templateUrl: './current-balance.component.html',
-    styleUrl: './current-balance.component.scss'
+    templateUrl: './current-balance.component.html'
 })
 export class CurrentBalanceComponent {
     private readonly storeService = inject(StoreService);

@@ -7,8 +7,7 @@ import {TransactionUtils} from "../../utils/transactions.utils";
     standalone: true,
     selector: 'app-total-expenses',
     imports: [CommonModule],
-    templateUrl: './total-expenses.component.html',
-    styleUrl: './total-expenses.component.scss'
+    templateUrl: './total-expenses.component.html'
 })
 export class TotalExpensesComponent {
     private readonly storeService = inject(StoreService);

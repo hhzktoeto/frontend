@@ -1,0 +1,86 @@
+.flex-shrink-0 {
+    flex-shrink: 0;
+}
+
+.border {
+    border-width: 1px;
+}
+
+.border-b {
+    border-bottom-width: 1px;
+}
+
+.border-t {
+    border-top-width: 1px;
+}
+
+.border-none {
+    border-style: none;
+}
+
+.bg-primary-100 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(234 236 255 / var(--tw-bg-opacity));
+}
+
+.bg-primary-600 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(87 95 191 / var(--tw-bg-opacity));
+}
+
+.font-sans {
+    font-family: Oswald,
+    ui-sans-serif,
+    system-ui,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
+}
+
+.text-3xl {
+    font-size: 33.75px;
+    line-height: 40.5px;
+}
+
+.text-lg {
+    font-size: 20.25px;
+    line-height: 30.375px;
+}
+
+.text-sm {
+    font-size: 15.75px;
+    line-height: 23.625px;
+}
+
+.text-xl {
+    font-size: 22.5px;
+    line-height: 31.499999999999996px;
+}
+
+.text-xs {
+    font-size: 13.5px;
+    line-height: 21.6px;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.text-red {
+    color: darkred;
+}
+
+.shadow-md {
+    --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+}

@@ -12,8 +12,7 @@ import {NgIf} from "@angular/common";
     imports: [
         NgIf
     ],
-    templateUrl: './transactions-history.component.html',
-    styleUrl: './transactions-history.component.scss'
+    templateUrl: './transactions-history.component.html'
 })
 export class TransactionsHistoryComponent {
     private readonly storeService = inject(StoreService);

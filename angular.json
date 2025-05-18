@@ -33,8 +33,13 @@
               }
             ],
             "styles": [
-              "src/styles/main.scss"
+              "src/styles/main.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
