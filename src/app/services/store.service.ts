@@ -20,8 +20,6 @@ export class StoreService {
     public readonly categoriesSig = this._categories.asReadonly();
     public readonly showPeriodSig = this._showPeriod.asReadonly();
 
-    private readonly categoriesNames = new Set<string>();
-
     constructor() {
         this.loadTransactions();
         this.loadCategories();
@@ -40,7 +38,6 @@ export class StoreService {
         try {
             const categories = await this.categoryService.getAll();
             this._categories.set(categories);
-            this.updateCategoriesNames(categories);
         } catch (err) {
             console.error("Failed to refresh transactions", err);
         }
@@ -50,6 +47,7 @@ export class StoreService {
         try {
             const newTransaction = await this.transactionService.create(dto);
             this._transactions.update(current => [...current, newTransaction]);
+            await this.loadCategories();
         } catch (err) {
             console.error("Failed to add transaction", err);
         }
@@ -61,6 +59,7 @@ export class StoreService {
             this._transactions.update(current => current.map(oldTransaction =>
                 oldTransaction.id === updatedTransaction.id ? updatedTransaction : oldTransaction
             ));
+            await this.loadCategories();
         } catch (err) {
             console.error("Failed to update transaction", err);
         }
@@ -72,6 +71,7 @@ export class StoreService {
             this._transactions.update(current =>
                 current.filter(transaction => transaction.id !== id)
             );
+            await this.loadCategories();
         } catch (err) {
             console.error("Failed to delete transaction", err);
         }
@@ -79,10 +79,5 @@ export class StoreService {
 
     updateShowPeriod(period: ShowPeriod): void {
         this._showPeriod.set(period);
-    }
-
-    private updateCategoriesNames(categories: Category[]): void {
-        this.categoriesNames.clear();
-        categories.forEach(category => this.categoriesNames.add(category.name));
     }
 }
