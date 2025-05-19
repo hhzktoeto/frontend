@@ -18,12 +18,12 @@
 <div class="overflow-x-auto">
     <table class="w-full table-fixed">
         <thead>
-        <tr class="text-left bg-light-1 text-xs text-dark-1 uppercase cursor-pointer">
+        <tr class="text-left bg-light-1 text-xs text-dark-1 uppercase">
             @for (field of Object.values(TransactionFieldName); track field) {
-                <th class="font-medium px-6 py-2"
+                <th class="px-6 py-0.5"
                     (click)="toggleSorting(field)"
                 >
-            <span>
+            <span class="cursor-pointer">
               {{ field }}
                 <span class="material-symbols-outlined text-xs">
                 @if (sortingSig().sortingBy === field) {
@@ -39,37 +39,90 @@
         </thead>
         <tbody class="divide-y divide-gray-200">
             @for (transaction of transactions(); track transaction.id) {
-                <tr (mouseenter)="hoveredIdSig.set(transaction.id)"
-                    (mouseleave)="hoveredIdSig.set(null)"
-                    class="hover:bg-dark-3 transition-colors duration-150">
-                    <td class="px-6 py-6 overflow-hidden whitespace-nowrap text-light-1">
-                        {{ transaction.category }}
-                    </td>
-                    <td class="px-6 py-6 overflow-hidden whitespace-nowrap text-light-1">
-                        {{ transaction.type === 'EXPENSE' ? 'Расход' : 'Доход' }}
-                    </td>
-                    <td class="px-6 py-6 overflow-hidden whitespace-nowrap text-light-1">
-                        {{
-                            FormattingUtils.formatDate(transaction.date)
-                        }}
-                    </td>
-                    <td class="px-6 py-6 overflow-hidden whitespace-nowrap fonts-monospace
+                @if (editingIdSig() === transaction.id) {
+                    <!--    Режим редактирования    -->
+                    <tr tabIndex="-1"
+                        editRowFocus
+                        (keydown.enter)="saveEdit(transaction.id)"
+                        (keydown.escape)="cancelEdit()"
+                        class="bg-dark-2 outline-none">
+                        <td class="p-3">
+                            <select class="overflow-hidden whitespace-nowrap text-light-1 outline-none"
+                                    [ngModel]="editBufferSig().type"
+                                    (ngModelChange)="updateEditBuffer('type', $event)"
+                            >
+                                <option value="EXPENSE">Расход</option>
+                                <option value="INCOME">Доход</option>
+                            </select>
+                        </td>
+
+                        <td class="p-3">
+                            <input type="text"
+                                   class="overflow-hidden whitespace-nowrap text-light-1 outline-none"
+                                   [ngModel]="editBufferSig().category"
+                                   (ngModelChange)="updateEditBuffer('category', $event)"/>
+                        </td>
+
+                        <td class="p-3">
+                            <input type="date"
+                                   class="overflow-hidden whitespace-nowrap text-light-1 outline-none"
+                                   [ngModel]="editBufferSig().date"
+                                   (ngModelChange)="updateEditBuffer('date', $event)"/>
+                        </td>
+
+                        <td class="p-3">
+                            <input type="number" step="0.01"
+                                   class="overflow-hidden whitespace-nowrap fonts-monospace
+                                    {{ editBufferSig().type === 'EXPENSE'
+                                    ? 'text-red'
+                                    : 'text-green'
+                                    }}"
+                                   [ngModel]="editBufferSig().amount"
+                                   (ngModelChange)="updateEditBuffer('amount', $event)"/>
+                        </td>
+
+                        <td class="p-3">
+                            <input type="text"
+                                   class="overflow-hidden whitespace-nowrap text-light-1 outline-none"
+                                   [ngModel]="editBufferSig().description"
+                                   (ngModelChange)="updateEditBuffer('description', $event)"/>
+                        </td>
+                    </tr>
+                } @else {
+                    <!--    Режим отображения       -->
+                    <tr (dblclick)="startEdit(transaction)"
+                        (mouseenter)="hoveredIdSig.set(transaction.id)"
+                        (mouseleave)="hoveredIdSig.set(null)"
+                        class="hover:bg-dark-3 transition-colors duration-150">
+                        <td class="p-3 overflow-hidden whitespace-nowrap text-light-1">
+                            {{ transaction.type === 'EXPENSE' ? 'Расход' : 'Доход' }}
+                        </td>
+                        <td class="p-3 overflow-hidden whitespace-nowrap text-light-1">
+                            {{ transaction.category }}
+                        </td>
+                        <td class="p-3 overflow-hidden whitespace-nowrap text-light-1">
+                            {{
+                                FormattingUtils.formatDate(transaction.date)
+                            }}
+                        </td>
+                        <td class="p-3 overflow-hidden whitespace-nowrap fonts-monospace
                                 {{ transaction.type === 'EXPENSE'
                                     ? 'text-red'
                                     : 'text-green'
                                 }}">
-                        {{ transaction.amount.toFixed(2) }}₽
-                    </td>
-                    <td class="px-6 py-4 flex justify-between">
-                        <span class="w-70 overflow-auto whitespace-nowrap text-light-1">{{ transaction.description }}</span>
-                        <button *ngIf="hoveredIdSig() === transaction.id"
-                                (click)="delete(transaction.id)"
-                                class="mt-2 ml-2 text-red transition-opacity duration-200"
-                        >
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
-                    </td>
-                </tr>
+                            {{ transaction.amount.toFixed(2) }}₽
+                        </td>
+                        <td class="px-3 py-1 mt-2 flex justify-between">
+                            <span class="w-70 overflow-auto whitespace-nowrap text-light-1">{{ transaction.description }}</span>
+                            <button *ngIf="hoveredIdSig() === transaction.id"
+                                    (click)="delete(transaction.id)"
+                                    class="ml-2 text-red transition-opacity duration-200"
+                            >
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>

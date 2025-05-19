@@ -12,7 +12,7 @@
 .bg-red { background-color: var(--red) }
 .bg-orange { background-color: var(--orange) }
 .bg-yellow { background-color: var(--yellow) }
-.bg-green { background-color: var(--purple) }
+.bg-green { background-color: var(--green) }
 .bg-purple { background-color: var(--purple) }
 .bg-transparent{ background-color: transparent }
 
@@ -30,6 +30,6 @@
 .hover\:bg-red:hover { background-color: var(--red) }
 .hover\:bg-orange:hover { background-color: var(--orange) }
 .hover\:bg-yellow:hover { background-color: var(--yellow) }
-.hover\:bg-green:hover { background-color: var(--purple) }
+.hover\:bg-green:hover { background-color: var(--green) }
 .hover\:bg-purple:hover { background-color: var(--purple) }
 .hover\:bg-transparent:hover{ background-color: transparent }

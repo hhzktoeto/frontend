@@ -55,6 +55,17 @@ export class StoreService {
         }
     }
 
+    async updateTransaction(transaction: Transaction): Promise<void> {
+        try {
+            const updatedTransaction = await this.transactionService.update(transaction);
+            this._transactions.update(current => current.map(oldTransaction =>
+                oldTransaction.id === updatedTransaction.id ? updatedTransaction : oldTransaction
+            ));
+        } catch (err) {
+            console.error("Failed to update transaction", err);
+        }
+    }
+
     async deleteTransaction(id: number): Promise<void> {
         try {
             await this.transactionService.delete(id);

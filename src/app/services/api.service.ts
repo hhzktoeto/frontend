@@ -20,6 +20,12 @@ export class ApiService {
         );
     }
 
+    async update<T>(path: ApiPath, data: T): Promise<T> {
+        return firstValueFrom(
+            this.http.put<T>(this.baseUrl.concat(path), data)
+        );
+    }
+
     async delete(path: ApiPath, id: number): Promise<void> {
         const url = this.baseUrl.concat(path).concat("/").concat(id.toString());
         return firstValueFrom(

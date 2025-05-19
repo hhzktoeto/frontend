@@ -15,6 +15,10 @@ export class TransactionService {
         return this.apiService.add<TransactionDTO, Transaction>(ApiPath.TRANSACTIONS, dto);
     }
 
+    async update(transaction: Transaction): Promise<Transaction> {
+        return this.apiService.update<Transaction>(ApiPath.TRANSACTIONS, transaction);
+    }
+
     async delete(id: number): Promise<void> {
         return this.apiService.delete(ApiPath.TRANSACTIONS, id);
     }

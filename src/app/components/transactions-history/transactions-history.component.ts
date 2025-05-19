@@ -5,12 +5,17 @@ import {TransactionFieldName} from "../../constants/transaction-field-name";
 import {SortingDirection} from "../../constants/sorting-direction";
 import {FormattingUtils} from "../../utils/formatting.utils";
 import {NgIf} from "@angular/common";
+import {Transaction} from "../../types/transaction";
+import {FormsModule} from "@angular/forms";
+import {EditRowFocusDirective} from "../../directrives/edit-row-focus.directive";
 
 @Component({
     standalone: true,
     selector: 'app-transactions-history',
     imports: [
-        NgIf
+        NgIf,
+        FormsModule,
+        EditRowFocusDirective
     ],
     templateUrl: './transactions-history.component.html'
 })
@@ -19,9 +24,12 @@ export class TransactionsHistoryComponent {
 
     readonly transactionsSig = this.storeService.transactionsSig;
     readonly showPeriodSig = this.storeService.showPeriodSig;
-    readonly hoveredIdSig = signal<number | null>(null);
 
-    sortingSig = signal<SortingRules>({
+    readonly hoveredIdSig = signal<number | null>(null);
+    readonly editingIdSig = signal<number | null>(null);
+    readonly editBufferSig = signal<Partial<Transaction>>({});
+
+    readonly sortingSig = signal<SortingRules>({
         sortingBy: TransactionFieldName.DATE,
         direction: SortingDirection.DESC
     });
@@ -46,6 +54,32 @@ export class TransactionsHistoryComponent {
                 direction: SortingDirection.DESC
             };
         })
+    }
+
+    startEdit(transaction: Transaction): void {
+        this.editingIdSig.set(transaction.id);
+        this.editBufferSig.set({...transaction});
+    }
+
+    updateEditBuffer<K extends keyof Transaction>(field: K, value: Transaction[K]): void {
+        this.editBufferSig.update(current => ({
+            ...current,
+            [field]: value
+        }));
+    }
+
+    cancelEdit(): void {
+        this.editingIdSig.set(null);
+        this.editBufferSig.set({});
+    }
+
+    async saveEdit(id: number): Promise<void> {
+        const updated = {
+            ...this.editBufferSig(),
+            id
+        } as Transaction;
+        await this.storeService.updateTransaction(updated);
+        this.editingIdSig.set(null);
     }
 
     async delete(id: number): Promise<void> {
