@@ -1,17 +1,17 @@
-import {Component, computed, inject} from '@angular/core';
-import {CommonModule} from "@angular/common";
+import {Component, computed, inject} from "@angular/core";
 import {StoreService} from "../../services/store.service";
-import {BaseChartDirective} from "ng2-charts";
 import {ChartData, ChartEvent, ChartOptions, LegendElement, LegendItem} from "chart.js";
 import {ColorsUtils} from "../../utils/colors.utils";
+import {CommonModule} from "@angular/common";
+import {BaseChartDirective} from "ng2-charts";
 
 @Component({
     standalone: true,
-    selector: 'app-categories-spending-chart',
+    selector: 'app-categories-charts',
     imports: [CommonModule, BaseChartDirective],
-    templateUrl: './categories-spending-chart.component.html'
+    templateUrl: './categories-charts.component.html'
 })
-export class CategoriesSpendingChartComponent {
+export class CategoriesChartsComponent {
     private readonly storeService = inject(StoreService);
     private readonly transactionsSig = this.storeService.transactionsSig;
 
@@ -52,7 +52,28 @@ export class CategoriesSpendingChartComponent {
         }
     }
 
-    chartData = computed(() => {
+    incomesChart = computed(() => {
+        const incomes = this.transactionsSig().filter(t => t.type === "INCOME");
+        const categoryIncomeMap = new Map<string, number>();
+
+        incomes.forEach(transaction => {
+            const current = categoryIncomeMap.get(transaction.category) ?? 0;
+            categoryIncomeMap.set(transaction.category, current + transaction.amount);
+        })
+        const labels = Array.from(categoryIncomeMap.keys());
+        const data = Array.from(categoryIncomeMap.values());
+
+        return {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: ColorsUtils.generateColorPalette(labels.length),
+                borderWidth: 0
+            }]
+        } as ChartData;
+    });
+
+    expensesChart = computed(() => {
         const expenses = this.transactionsSig().filter(t => t.type === "EXPENSE");
         const categorySpendingMap = new Map<string, number>();
 
@@ -70,7 +91,6 @@ export class CategoriesSpendingChartComponent {
                 backgroundColor: ColorsUtils.generateColorPalette(labels.length),
                 borderWidth: 0
             }]
-        } as ChartData
-    })
+        } as ChartData;
+    });
 }
-

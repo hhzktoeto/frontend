@@ -9,12 +9,21 @@ import {TotalExpensesComponent} from "../total-expenses/total-expenses.component
 import {TotalIncomesComponent} from "../total-incomes/total-incomes.component";
 import {TransactionsHistoryComponent} from "../transactions-history/transactions-history.component";
 import {StoreService} from "../../services/store.service";
-import {CategoriesSpendingChartComponent} from "../categories-spending-chart/categories-spending-chart.component";
+import {CategoriesChartsComponent} from "../categories-charts/categories-charts.component";
 
 @Component({
     standalone: true,
     selector: 'app-dashboard',
-    imports: [CommonModule, HeaderComponent, AddTransactionComponent, TotalSavingsComponent, TotalExpensesComponent, TotalIncomesComponent, TransactionsHistoryComponent, CategoriesSpendingChartComponent],
+    imports: [
+        CommonModule,
+        HeaderComponent,
+        AddTransactionComponent,
+        TotalSavingsComponent,
+        TotalExpensesComponent,
+        TotalIncomesComponent,
+        TransactionsHistoryComponent,
+        CategoriesChartsComponent
+    ],
     templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent {

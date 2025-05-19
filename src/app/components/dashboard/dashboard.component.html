@@ -44,9 +44,7 @@
 
         <!-- Статистика -->
         <div [hidden]="activeTab !== 'Статистика'">
-            <div class="mb-8 gap-6 grid grid-cols-2 md:grid-cols-2 rounded-xl overflow-hidden">
-                <app-categories-spending-chart/>
-            </div>
+            <app-categories-charts/>
             <!-- <app-category-details /> -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <!-- <app-monthly-overview /> -->

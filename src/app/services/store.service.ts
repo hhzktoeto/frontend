@@ -20,27 +20,11 @@ export class StoreService {
     public readonly categoriesSig = this._categories.asReadonly();
     public readonly showPeriodSig = this._showPeriod.asReadonly();
 
-    constructor() {
-        this.loadTransactions();
-        this.loadCategories();
-    }
-
-    async loadTransactions(): Promise<void> {
-        try {
-            const transactions = await this.transactionService.getAll();
-            this._transactions.set(transactions);
-        } catch (err) {
-            console.error("Failed to refresh transactions", err);
-        }
-    }
-
-    async loadCategories(): Promise<void> {
-        try {
-            const categories = await this.categoryService.getAll();
-            this._categories.set(categories);
-        } catch (err) {
-            console.error("Failed to refresh transactions", err);
-        }
+    public async init(): Promise<void> {
+        await Promise.all([
+            this.loadTransactions(),
+            this.loadCategories()
+        ]);
     }
 
     async addTransaction(dto: TransactionDTO): Promise<void> {
@@ -79,5 +63,23 @@ export class StoreService {
 
     updateShowPeriod(period: ShowPeriod): void {
         this._showPeriod.set(period);
+    }
+
+    private async loadTransactions(): Promise<void> {
+        try {
+            const transactions = await this.transactionService.getAll();
+            this._transactions.set(transactions);
+        } catch (err) {
+            console.error("Failed to refresh transactions", err);
+        }
+    }
+
+    private async loadCategories(): Promise<void> {
+        try {
+            const categories = await this.categoryService.getAll();
+            this._categories.set(categories);
+        } catch (err) {
+            console.error("Failed to refresh transactions", err);
+        }
     }
 }
