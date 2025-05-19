@@ -28,17 +28,6 @@
     background-color: rgb(87 95 191 / var(--tw-bg-opacity));
 }
 
-.font-sans {
-    font-family: Oswald,
-    ui-sans-serif,
-    system-ui,
-    sans-serif,
-    Apple Color Emoji,
-    Segoe UI Emoji,
-    Segoe UI Symbol,
-    Noto Color Emoji;
-}
-
 .text-3xl {
     font-size: 33.75px;
     line-height: 40.5px;
@@ -47,11 +36,6 @@
 .text-lg {
     font-size: 20.25px;
     line-height: 30.375px;
-}
-
-.text-sm {
-    font-size: 15.75px;
-    line-height: 23.625px;
 }
 
 .text-xl {

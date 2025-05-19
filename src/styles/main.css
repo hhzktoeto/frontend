@@ -4,3 +4,8 @@
 
 @import "tailwindcss";
 @import "./base/base.css";
+@import "./utils/colors.css";
+@import "./utils/backgrounds.css";
+@import "./utils/fonts.css";
+@import "./utils/texts.css";
+@import "./utils/effects.css";

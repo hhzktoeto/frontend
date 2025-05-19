@@ -7,9 +7,9 @@ import {TransactionUtils} from "../../utils/transactions.utils";
     standalone: true,
     selector: 'app-current-balance',
     imports: [CommonModule],
-    templateUrl: './current-balance.component.html'
+    templateUrl: './total-savings.component.html'
 })
-export class CurrentBalanceComponent {
+export class TotalSavingsComponent {
     private readonly storeService = inject(StoreService);
 
     readonly totalAmount = computed(() => {

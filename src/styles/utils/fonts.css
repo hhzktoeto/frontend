@@ -1,0 +1,35 @@
+:root {
+    --font-open-sans: 'Open Sans';
+    --font-oswald: 'Oswald';
+    --font-jetbrains: 'Jetbrains Mono'
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url(/assets/fonts/JetBrainsMono-Medium.woff2) format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+.fonts-sans {
+    font-family: var(--font-oswald),
+    ui-sans-serif,
+    system-ui,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
+}
+
+.fonts-monospace {
+    font-family: var(--font-jetbrains),
+    ui-sans-serif,
+    system-ui,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
+}

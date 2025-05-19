@@ -1,11 +1,13 @@
-<div class="bg-white p-5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+<div class="p-5 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:-translate-y-1">
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">Доходы</h2>
-        <span class="material-symbols-outlined text-green-500">trending_up</span>
+        <h2 class="text-xl text-light-1">Доходы</h2>
+        <span class="material-symbols-outlined text-light-1">trending_up</span>
     </div>
-    <p class="text-3xl font-bold mb-2">{{ totalAmount() | number: "1.2-2" }}</p>
-    <div class="flex items-center text-green-500">
-        <span class="material-symbols-outlined text-sm mr-1">arrow_upward</span>
-        <span class="text-sm">+$750 from last month</span>
-    </div>
+    <p class="text-3xl fonts-monospace mb-2
+                {{ totalAmount() == 0
+                    ? 'text-light-1'
+                    : 'text-green'
+                }}">
+        {{ totalAmount() | number: "1.2-2" }}₽
+    </p>
 </div>

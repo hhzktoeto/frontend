@@ -1,0 +1,17 @@
+<div class="p-5 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:-translate-y-1">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl text-light-1">Накопления</h2>
+        <span class="material-symbols-outlined text-light-1">account_balance_wallet</span>
+    </div>
+    <p class="text-3xl fonts-monospace mb-2
+                {{ totalAmount() > 0
+                    ? 'text-green'
+                    : (
+                        totalAmount() == 0
+                        ? 'text-light-1'
+                        : 'text-red'
+                        )
+                }}">
+        {{ totalAmount() | number: "1.2-2" }}₽
+    </p>
+</div>
