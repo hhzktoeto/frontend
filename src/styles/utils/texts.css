@@ -13,7 +13,7 @@
 .text-red { color: var(--red) }
 .text-orange { color: var(--orange) }
 .text-yellow { color: var(--yellow) }
-.text-green { color: var(--purple) }
+.text-green { color: var(--green) }
 .text-purple { color: var(--purple) }
 
 .hover\:text-dark-1:hover { color: var(--dark1); }
