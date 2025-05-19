@@ -1,5 +1,10 @@
-<div className="bg-white p-5 rounded-xl shadow-md">
-    <h2 className="text-xl font-semibold mb-4">Spending Categories</h2>
-    <div className="h-[300px]">x
+<div class="p-4 bg-dark-4 rounded-xl shadow-md">
+    <h2 class="text-xl text-light-1 mb-4">Затраты по категориям</h2>
+    <div class="relative">
+        <canvas baseChart
+                [data]="chartData()"
+                [type]="'doughnut'"
+                [options]="chartOptions"
+        ></canvas>
     </div>
 </div>

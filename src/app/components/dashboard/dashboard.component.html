@@ -14,7 +14,8 @@
                 {{ tab }}
             </button>
 
-            <div class="flex-grow flex justify-end">
+            <div class="flex-grow flex justify-end"
+                 [hidden]="activeTab !== 'Главная'">
                 <select class="px-2 py-2 outline-none rounded-xl text-sm text-dark-1 bg-light-1 hover:bg-blue-2 transition-colors duration-200 cursor-pointer"
                         #selectElement (change)="changeShowPeriod(selectElement.value)">
                     <option *ngFor="let option of Object.values(ShowPeriod)" [value]="option">
@@ -43,10 +44,10 @@
 
         <!-- Статистика -->
         <div [hidden]="activeTab !== 'Статистика'">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="mb-8 gap-6 grid grid-cols-2 md:grid-cols-2 rounded-xl overflow-hidden">
                 <app-categories-spending-chart/>
-                <!-- <app-category-details /> -->
             </div>
+            <!-- <app-category-details /> -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <!-- <app-monthly-overview /> -->
                 <!-- <app-categories-spending /> -->
