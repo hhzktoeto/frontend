@@ -34,6 +34,7 @@ export class TransactionsHistoryComponent {
 
     readonly hoveredIdSig = signal<number | null>(null);
     readonly editingIdSig = signal<number | null>(null);
+    readonly visibleDescriptionIdSig = signal<number | null>(null);
     readonly editBufferSig = signal<Partial<Transaction>>({});
 
     readonly sortingSig = signal<SortingRules>({
@@ -60,6 +61,10 @@ export class TransactionsHistoryComponent {
                 direction: SortingDirection.DESC
             };
         })
+    }
+
+    toggleDescription(id: number): void {
+        this.visibleDescriptionIdSig.update(current => current === id ? null : id);
     }
 
     startEdit(transaction: Transaction): void {
