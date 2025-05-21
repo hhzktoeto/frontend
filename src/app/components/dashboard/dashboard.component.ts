@@ -4,12 +4,10 @@ import {CommonModule} from '@angular/common';
 import {HeaderComponent} from '../header/header.component';
 import {ShowPeriod} from '../../constants/show-period';
 import {AddTransactionComponent} from '../add-transaction/add-transaction.component';
-import {TotalSavingsComponent} from "../total-savings/total-savings.component";
-import {TotalExpensesComponent} from "../total-expenses/total-expenses.component";
-import {TotalIncomesComponent} from "../total-incomes/total-incomes.component";
 import {TransactionsHistoryComponent} from "../transactions-history/transactions-history.component";
 import {StoreService} from "../../services/store.service";
 import {CategoriesChartsComponent} from "../categories-charts/categories-charts.component";
+import {SummaryCardsComponent} from "../summary-cards/summary-cards.component";
 
 @Component({
     standalone: true,
@@ -18,11 +16,9 @@ import {CategoriesChartsComponent} from "../categories-charts/categories-charts.
         CommonModule,
         HeaderComponent,
         AddTransactionComponent,
-        TotalSavingsComponent,
-        TotalExpensesComponent,
-        TotalIncomesComponent,
         TransactionsHistoryComponent,
-        CategoriesChartsComponent
+        CategoriesChartsComponent,
+        SummaryCardsComponent
     ],
     templateUrl: './dashboard.component.html'
 })

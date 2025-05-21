@@ -1,0 +1,29 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="p-4 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:-translate-y-1">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl text-light-1">Доходы</h2>
+            <span class="material-symbols-outlined text-green">trending_up</span>
+        </div>
+        <p class="text-3xl fonts-monospace mb-2 {{ incomes() == 0 ? 'text-light-1' : 'text-green'}}">
+            {{ incomes() | number: "1.2-2" }}₽
+        </p>
+    </div>
+    <div class="p-4 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:-translate-y-1">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl text-light-1">Расходы</h2>
+            <span class="material-symbols-outlined text-red">trending_down</span>
+        </div>
+        <p class="text-3xl fonts-monospace mb-2 {{ expenses() == 0 ? 'text-light-1' : 'text-red' }}">
+            {{ expenses() | number: "1.2-2" }}₽
+        </p>
+    </div>
+    <div class="p-4 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:-translate-y-1">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl text-light-1">Баланс</h2>
+            <span class="material-symbols-outlined text-blue-2">account_balance_wallet</span>
+        </div>
+        <p class="text-3xl fonts-monospace mb-2 text-light-1">
+            {{ balance() | number: "1.2-2" }}₽
+        </p>
+    </div>
+</div>
