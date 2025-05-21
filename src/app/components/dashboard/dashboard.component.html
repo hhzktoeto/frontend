@@ -1,10 +1,10 @@
-<div>
-    <div class="w-full p-4 fonts-sans rounded-xl shadow-lg">
-        <app-header></app-header>
+<div class="fonts-sans rounded-xl shadow-lg">
+    <app-header></app-header>
 
-        <!-- Табы -->
-        <div class="flex space-x-2 mb-3">
-            <button class="px-4 py-2 rounded-xl text-sm font-medium"
+    <!-- Табы -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 space-y-2">
+        <div class="flex flex-grow justify-start space-x-1">
+            <button class="w-full sm:w-[30%] py-2 rounded-xl text-sm font-medium"
                     *ngFor="let tab of Object.values(TabName)"
                     [ngClass]="activeTab === tab
                     ? 'bg-blue-4 text-light-3'
@@ -13,43 +13,46 @@
                     (click)="setTab(tab)">
                 {{ tab }}
             </button>
-
-            <div class="flex-grow flex justify-end"
-                 [hidden]="activeTab !== 'Главная'">
-                <select class="px-2 py-2 outline-none rounded-xl text-sm text-dark-1 bg-light-1 hover:bg-blue-2 transition-colors duration-200 cursor-pointer"
-                        #selectElement (change)="changeShowPeriod(selectElement.value)">
-                    <option *ngFor="let option of Object.values(ShowPeriod)" [value]="option">
-                        {{ option }}
-                    </option>
-                </select>
-            </div>
         </div>
 
-        <!-- Главная -->
-        <div [hidden]="activeTab !== 'Главная'">
-            <div class="p-4 bg-dark-4 shadow-md rounded-xl mb-8">
-                <app-add-transaction/>
+        <div class="flex flex-grow justify-end"
+             [hidden]="activeTab !== 'Главная'">
+            <select class="w-full sm:w-fit mb-2 sm:mb-0 px-2 outline-none rounded-xl text-sm text-dark-1 bg-light-1 hover:bg-blue-2 transition-colors duration-200 cursor-pointer h-9"
+                    #selectElement (change)="changeShowPeriod(selectElement.value)">
+                <option *ngFor="let option of Object.values(ShowPeriod)" [value]="option">
+                    {{ option }}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Главная -->
+    <div [hidden]="activeTab !== 'Главная'">
+        <div class="p-4 bg-dark-4 shadow-md rounded-xl mb-8">
+            <app-add-transaction/>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 max-w-6xl gap-6 mb-8">
+            <div class="w-full mx-auto">
+                <app-current-balance/>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <app-current-balance/>
+            <div class="w-full mx-auto">
                 <app-total-incomes/>
+            </div>
+
+            <div class="w-full mx-auto">
                 <app-total-expenses/>
             </div>
-
-            <div class="bg-dark-4 rounded-xl shadow-md overflow-hidden">
-                <app-transactions-history/>
-            </div>
         </div>
 
-        <!-- Статистика -->
-        <div [hidden]="activeTab !== 'Статистика'">
-            <app-categories-charts/>
-            <!-- <app-category-details /> -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <!-- <app-monthly-overview /> -->
-                <!-- <app-categories-spending /> -->
-            </div>
+        <div class="bg-dark-4 rounded-xl shadow-md overflow-hidden">
+            <app-transactions-history/>
         </div>
+    </div>
+
+    <!-- Статистика -->
+    <div [hidden]="activeTab !== 'Статистика'">
+        <app-categories-charts/>
     </div>
 </div>
