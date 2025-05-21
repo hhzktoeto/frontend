@@ -4,19 +4,17 @@ import {SortingRules, TransactionUtils} from "../../utils/transactions.utils";
 import {TransactionFieldName} from "../../constants/transaction-field-name";
 import {SortingDirection} from "../../constants/sorting-direction";
 import {FormattingUtils} from "../../utils/formatting.utils";
-import {NgIf} from "@angular/common";
-import {Transaction} from "../../types/transaction";
 import {FormsModule} from "@angular/forms";
-import {EditRowFocusDirective} from "../../directrives/edit-row-focus.directive";
 import {TransactionFilterService} from "../../services/transaction.filter.service";
+import {Transaction} from "../../types/transaction";
+import {TransactionEditModalComponent} from "../transaction-edit-modal/transaction-edit-modal.component";
 
 @Component({
     standalone: true,
     selector: 'app-transactions-history',
     imports: [
-        NgIf,
         FormsModule,
-        EditRowFocusDirective
+        TransactionEditModalComponent
     ],
     templateUrl: './transactions-history.component.html'
 })
@@ -33,9 +31,8 @@ export class TransactionsHistoryComponent {
     })
 
     readonly hoveredIdSig = signal<number | null>(null);
-    readonly editingIdSig = signal<number | null>(null);
     readonly visibleDescriptionIdSig = signal<number | null>(null);
-    readonly editBufferSig = signal<Partial<Transaction>>({});
+    readonly startEditingSig = signal<Transaction | null>(null);
 
     readonly sortingSig = signal<SortingRules>({
         sortingBy: TransactionFieldName.DATE,
@@ -45,7 +42,7 @@ export class TransactionsHistoryComponent {
     readonly transactions = computed(() => {
         console.log("sorting transactions history by", this.sortingSig());
         return TransactionUtils.sort(this.filteredTransactions(), this.sortingSig())
-    })
+    });
 
     toggleSorting(fieldName: string): void {
         const field = fieldName as TransactionFieldName;
@@ -67,30 +64,17 @@ export class TransactionsHistoryComponent {
         this.visibleDescriptionIdSig.update(current => current === id ? null : id);
     }
 
-    startEdit(transaction: Transaction): void {
-        this.editingIdSig.set(transaction.id);
-        this.editBufferSig.set({...transaction});
-    }
-
-    updateEditBuffer<K extends keyof Transaction>(field: K, value: Transaction[K]): void {
-        this.editBufferSig.update(current => ({
-            ...current,
-            [field]: value
-        }));
+    openEditWindow(transaction: Transaction): void {
+        console.log("Open edit window:", transaction);
+        this.startEditingSig.set(transaction);
     }
 
     cancelEdit(): void {
-        this.editingIdSig.set(null);
-        this.editBufferSig.set({});
+        this.startEditingSig.set(null);
     }
 
-    async saveEdit(id: number): Promise<void> {
-        const updated = {
-            ...this.editBufferSig(),
-            id
-        } as Transaction;
-        await this.storeService.updateTransaction(updated);
-        this.editingIdSig.set(null);
+    async saveEdited(transaction: Transaction): Promise<void> {
+        await this.storeService.updateTransaction(transaction);
     }
 
     async delete(id: number): Promise<void> {
