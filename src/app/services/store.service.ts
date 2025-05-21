@@ -1,26 +1,29 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {computed, inject, Injectable, signal} from '@angular/core';
 import {Transaction, TransactionDTO} from '../types/transaction';
 import {Category} from '../types/category';
 import {CategoryService} from './category.service';
 import {TransactionService} from './transaction.service';
 import {ShowPeriod} from "../constants/show-period";
+import {TransactionUtils} from "../utils/transactions.utils";
 
 @Injectable({providedIn: "root"})
 export class StoreService {
     private readonly categoryService = inject(CategoryService);
     private readonly transactionService = inject(TransactionService);
 
-    // Сигналы, которые внутри себя хранят данные. Для изменения данных, надо обращаться к сигналам. Они после изменения уведомят всех подпичсиков
     private readonly _transactions = signal<Transaction[]>([]);
     private readonly _categories = signal<Category[]>([]);
-    private readonly _showPeriod = signal<ShowPeriod>(ShowPeriod.CURRENT_MONTH);
+    private readonly _showPeriodFilter = signal<ShowPeriod>(ShowPeriod.CURRENT_MONTH);
 
-    // Для доступа к данным с динамическим обновлением надо вызывать storeService.transactionsSig() <- скобочки важны
-    public readonly transactionsSig = this._transactions.asReadonly();
-    public readonly categoriesSig = this._categories.asReadonly();
-    public readonly showPeriodSig = this._showPeriod.asReadonly();
+    readonly transactionsSig = computed(() => TransactionUtils.filter(
+        this._transactions(),
+        {
+            showPeriod: this._showPeriodFilter()
+        }
+    ));
+    readonly categoriesSig = this._categories.asReadonly();
 
-    public async init(): Promise<void> {
+    async init(): Promise<void> {
         await Promise.all([
             this.loadTransactions(),
             this.loadCategories()
@@ -61,8 +64,8 @@ export class StoreService {
         }
     }
 
-    updateShowPeriod(period: ShowPeriod): void {
-        this._showPeriod.set(period);
+    setShowPeriodFilter(period: ShowPeriod): void {
+        this._showPeriodFilter.set(period);
     }
 
     private async loadTransactions(): Promise<void> {

@@ -8,6 +8,7 @@ import {NgIf} from "@angular/common";
 import {Transaction} from "../../types/transaction";
 import {FormsModule} from "@angular/forms";
 import {EditRowFocusDirective} from "../../directrives/edit-row-focus.directive";
+import {TransactionFilterService} from "../../services/transaction.filter.service";
 
 @Component({
     standalone: true,
@@ -21,9 +22,15 @@ import {EditRowFocusDirective} from "../../directrives/edit-row-focus.directive"
 })
 export class TransactionsHistoryComponent {
     private readonly storeService = inject(StoreService);
+    private readonly transactionFilterService = inject(TransactionFilterService);
 
-    readonly transactionsSig = this.storeService.transactionsSig;
-    readonly showPeriodSig = this.storeService.showPeriodSig;
+    private readonly transactionsSig = this.storeService.transactionsSig;
+    private readonly filterSig = this.transactionFilterService.filterSig;
+
+    private readonly filteredTransactions = computed(() => {
+        console.log("filtering transactions in \"transactions-history table\" by", this.filterSig());
+        return TransactionUtils.filter(this.transactionsSig(), this.filterSig());
+    })
 
     readonly hoveredIdSig = signal<number | null>(null);
     readonly editingIdSig = signal<number | null>(null);
@@ -35,9 +42,8 @@ export class TransactionsHistoryComponent {
     });
 
     readonly transactions = computed(() => {
-        console.log("sorting transactions history by", this.sortingSig())
-        const filtered = TransactionUtils.filter(this.transactionsSig(), this.showPeriodSig());
-        return TransactionUtils.sort(filtered, this.sortingSig())
+        console.log("sorting transactions history by", this.sortingSig());
+        return TransactionUtils.sort(this.filteredTransactions(), this.sortingSig())
     })
 
     toggleSorting(fieldName: string): void {

@@ -1,6 +1,9 @@
 import {Component, computed, inject} from '@angular/core';
 import {DecimalPipe} from "@angular/common";
 import {StoreService} from "../../services/store.service";
+import {TransactionFilterService} from "../../services/transaction.filter.service";
+import {FilteringRules} from "../../utils/transactions.utils";
+import {TransactionType} from "../../constants/transaction-type";
 
 @Component({
     selector: 'app-summary-card',
@@ -11,8 +14,9 @@ import {StoreService} from "../../services/store.service";
 })
 export class SummaryCardsComponent {
     private readonly store = inject(StoreService);
+    private readonly transactionFilterService = inject(TransactionFilterService);
 
-    readonly transactionsSig = this.store.transactionsSig;
+    private readonly transactionsSig = this.store.transactionsSig;
 
     readonly incomes = computed(() =>
         this.transactionsSig().filter(t => t.type === "INCOME")
@@ -25,4 +29,14 @@ export class SummaryCardsComponent {
     );
 
     readonly balance = computed(() => this.incomes() - this.expenses());
+
+    setTransactionFilter (filter: Partial<FilteringRules>) {
+        this.transactionFilterService.setFilter(filter);
+    }
+
+    resetTransactionFilter() {
+        this.transactionFilterService.reset()
+    }
+
+    protected readonly TransactionType = TransactionType;
 }

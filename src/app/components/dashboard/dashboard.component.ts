@@ -31,8 +31,8 @@ export class DashboardComponent {
         this.activeTab = tab as TabName;
     }
 
-    changeShowPeriod(period: string): void {
-        this.storeService.updateShowPeriod(period as ShowPeriod);
+    setShowPeriod(period: string): void {
+        this.storeService.setShowPeriodFilter(period as ShowPeriod);
     }
 
     protected readonly TabName = TabName;
