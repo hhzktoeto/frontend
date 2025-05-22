@@ -4,6 +4,7 @@ import {FormBuilder, FormsModule, Validators} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 
 @Component({
+    standalone: true,
     selector: 'app-edit-transaction-modal',
     templateUrl: './transaction-edit-modal.component.html',
     imports: [
@@ -29,16 +30,13 @@ export class TransactionEditModalComponent {
 
     onSave() {
         if (this.form().invalid) {
+            console.log(this.form().getRawValue());
             console.log("Неверно введена информация для редактирования")
             return;
         }
         this.save.emit({
             ...this.transaction,
-            type: this.form().value.type!,
-            category: this.form().value.category!,
-            amount: this.form().value.amount!,
-            date: this.form().value.date!,
-            description: this.form().value.description!
+            ...this.form().getRawValue()
         } as Transaction);
     }
 
