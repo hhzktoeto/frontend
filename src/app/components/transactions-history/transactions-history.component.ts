@@ -75,6 +75,7 @@ export class TransactionsHistoryComponent {
 
     async saveEdited(transaction: Transaction): Promise<void> {
         await this.storeService.updateTransaction(transaction);
+        this.startEditingSig.set(null);
     }
 
     async delete(id: number): Promise<void> {
