@@ -18,9 +18,9 @@
 <div class="overflow-x-auto">
     <table class="w-full table-fixed">
         <thead>
-        <tr class="text-left bg-light-1 text-xs text-dark-1 uppercase">
+        <tr class="text-center bg-light-1 text-xs text-dark-1 uppercase">
             @for (field of Object.values(TransactionFieldName); track field) {
-                @if (!(field === TransactionFieldName.DESCRIPTION)) {
+                @if (!(field === TransactionFieldName.DESCRIPTION) && !(field === TransactionFieldName.TYPE)) {
                     <th class="px-6 py-0.5" (click)="toggleSorting(field)">
                         <span class="cursor-pointer">{{ field }}
                             <span class="material-symbols-outlined text-xs">
@@ -38,24 +38,20 @@
         </thead>
         <tbody>
             @for (transaction of transactions(); track transaction.id) {
-                <tr (click)="toggleDescription(transaction.id)"
+                <tr (dblclick)="openEditWindow(transaction)"
                     (mouseenter)="hoveredIdSig.set(transaction.id)"
                     (mouseleave)="hoveredIdSig.set(null)"
-                    class="hover:bg-dark-3 transition-colors duration-150">
-
-                    <td class="p-3 overflow-hidden whitespace-nowrap text-light-1 cursor-default">
-                        {{ transaction.type === 'EXPENSE' ? 'Расход' : 'Доход' }}
-                    </td>
+                    class="text-center hover:bg-dark-3 transition-colors duration-150">
                     <td class="p-3 overflow-hidden whitespace-nowrap text-light-1 cursor-default">
                         {{ transaction.category }}
                     </td>
                     <td class="p-3 overflow-hidden whitespace-nowrap text-light-1 cursor-default">
                         {{ FormattingUtils.formatDate(transaction.date) }}
                     </td>
-                    <td class="p-3 py-1 mt-2 grid grid-cols-2 justify-between overflow-hidden whitespace-nowrap fonts-monospace cursor-default {{ transaction.type === 'EXPENSE' ? 'text-red' : 'text-green'}}">
+                    <td class="p-3 py-1 mt-2 relative overflow-hidden whitespace-nowrap fonts-monospace cursor-default {{ transaction.type === 'EXPENSE' ? 'text-red' : 'text-green'}}">
                         {{ transaction.amount.toFixed(2) }}₽
                         @if (hoveredIdSig() === transaction.id) {
-                            <div class="flex justify-end gap-7">
+                            <div class="absolute right-1 top-1/4 flex gap-4">
                                 <button (click)="openEditWindow(transaction)"
                                         class="text-yellow transition-opacity duration-200">
                                     <span class="material-symbols-outlined">edit</span>
@@ -68,23 +64,13 @@
                         }
                     </td>
                 </tr>
-
-                @if (visibleDescriptionIdSig() === transaction.id) {
-                    <!-- Описание (всплывающее) -->
-                    <tr (mouseenter)="hoveredIdSig.set(transaction.id)"
-                        (mouseleave)="hoveredIdSig.set(null)">
-                        <td colspan="4" class="px-3 py-2 text-sm text-purple bg-dark-2 cursor-default">
-                            {{ transaction.description || 'Нет описания' }}
-                        </td>
-                    </tr>
-                }
             }
         </tbody>
     </table>
 </div>
-@if (startEditingSig()) {
+@if (openEditWindowSig()) {
     <app-edit-transaction-modal
-            [transaction]="startEditingSig()!"
+            [transaction]="openEditWindowSig()!"
             (save)="saveEdited($event)"
             (cancel)="cancelEdit()">
     </app-edit-transaction-modal>
