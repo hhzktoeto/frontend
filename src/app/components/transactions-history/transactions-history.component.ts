@@ -80,4 +80,5 @@ export class TransactionsHistoryComponent {
     protected readonly TransactionFieldName = TransactionFieldName;
     protected readonly Object = Object;
     protected readonly FormattingUtils = FormattingUtils;
+    protected readonly window = window;
 }
