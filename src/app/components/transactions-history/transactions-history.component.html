@@ -69,12 +69,16 @@
             }
         </tbody>
     </table>
+
+    @if (openEditWindowSig()) {
+        <div class="fixed inset-0 bg-black opacity-70"></div>
+        <div class="fixed flex items-center justify-center inset-0">
+                <app-edit-transaction-modal
+                        [transaction]="openEditWindowSig()!"
+                        (save)="saveEdited($event)"
+                        (cancel)="cancelEdit()"
+                        (delete)="delete($event)">
+                </app-edit-transaction-modal>
+        </div>
+    }
 </div>
-@if (openEditWindowSig()) {
-    <app-edit-transaction-modal
-            [transaction]="openEditWindowSig()!"
-            (save)="saveEdited($event)"
-            (cancel)="cancelEdit()"
-            (delete)="delete($event)">
-    </app-edit-transaction-modal>
-}
