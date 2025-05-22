@@ -1,0 +1,5 @@
+input, select, textarea, button {
+    &:focus {
+        outline: 2px solid var(--blue1);
+    }
+}

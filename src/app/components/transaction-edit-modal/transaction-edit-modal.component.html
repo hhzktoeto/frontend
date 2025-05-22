@@ -1,11 +1,14 @@
 <div class="fixed flex w-screen p-6 items-center justify-center inset-0">
-    <div class="bg-dark-2 rounded-lg p-6 w-full max-w-md">
-        <h3 class="text-lg font-medium text-light-1 mb-4 cursor-default">Редактирование транзакции</h3>
+    <div class="bg-dark-2 rounded-lg p-6 w-full max-w-md shadow-2xl">
+        <div class="flex justify-end mb-4">
+            <button (click)="onCancel()" class="text-red">
+                <span class="fonts-symbols text-2xl">close</span>
+            </button>
+        </div>
 
-        <form class="space-y-4" (ngSubmit)="onSave()">
+        <form class="space-y-6">
             <div>
-                <label class="block text-sm text-light-2 mb-1">Тип</label>
-                <select class="w-full bg-dark-3 text-light-1 p-2 rounded"
+                <select class="w-full bg-dark-4 text-light-1 p-2 rounded-lg h-10"
                         [(ngModel)]="transaction.type" name="type">
                     <option value="EXPENSE">Расход</option>
                     <option value="INCOME">Доход</option>
@@ -13,38 +16,36 @@
             </div>
 
             <div>
-                <label class="block text-sm text-light-2 mb-1">Категория</label>
-                <input type="text" class="w-full bg-dark-3 text-light-1 p-2 rounded"
+                <input class="w-full bg-dark-4 text-light-1 p-2 rounded-lg"
                        [(ngModel)]="transaction.category" name="category">
             </div>
 
             <div>
-                <label class="block text-sm text-light-2 mb-1">Дата</label>
-                <input type="date" class="w-full bg-dark-3 text-light-1 p-2 rounded"
+                <input type="date" class="w-full bg-dark-4 text-light-1 p-2 rounded-lg"
                        [ngModel]="transaction.date | date:'yyyy-MM-dd'"
                        (ngModelChange)="transaction.date = $event" name="date">
             </div>
 
             <div>
-                <label class="block text-sm text-light-2 mb-1">Сумма</label>
-                <input type="number" class="w-full bg-dark-3 text-light-1 p-2 rounded fonts-monospace"
+                <input type="number" class="w-full bg-dark-4 text-light-1 p-2 rounded-lg fonts-monospace"
                        [(ngModel)]="transaction.amount" name="amount">
             </div>
 
             <div>
-                <label class="block text-sm text-light-2 mb-1">Описание</label>
-                <textarea class="w-full bg-dark-3 text-light-1 p-2 rounded min-h-[80px]"
-                          [(ngModel)]="transaction.description" name="description"></textarea>
+                <label class="text-xs text-light-2">Описание
+                    <textarea class="w-full bg-dark-4 text-light-1 p-2 rounded-lg min-h-[60px]"
+                              [(ngModel)]="transaction.description" name="description"></textarea>
+                </label>
             </div>
 
-            <div class="flex justify-end space-x-3 pt-4">
-                <button type="button" (click)="onCancel()"
-                        class="px-4 py-2 text-light-1 hover:text-red transition-colors">
-                    <span class="fonts-symbols">close</span>
+            <div class="flex justify-between space-x-3 pt-4">
+                <button (click)="onDelete()"
+                        class="text-red">
+                    <span class="fonts-symbols text-2xl">delete</span>
                 </button>
-                <button type="submit"
-                        class="px-4 py-2 text-light-1 hover:text-green transition-colors">
-                    <span class="fonts-symbols">check</span>
+                <button (click)="onSave()"
+                        class="text-green">
+                    <span class="fonts-symbols text-2xl">check</span>
                 </button>
             </div>
         </form>

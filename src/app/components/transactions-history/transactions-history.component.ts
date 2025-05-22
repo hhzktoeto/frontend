@@ -61,7 +61,7 @@ export class TransactionsHistoryComponent {
 
     openEditWindow(transaction: Transaction): void {
         console.log("Open edit window:", transaction);
-        this.openEditWindowSig.set(transaction);
+        this.openEditWindowSig.set({...transaction});
     }
 
     cancelEdit(): void {
@@ -75,6 +75,9 @@ export class TransactionsHistoryComponent {
 
     async delete(id: number): Promise<void> {
         await this.storeService.deleteTransaction(id);
+        if (this.openEditWindowSig()) {
+            this.openEditWindowSig.set(null);
+        }
     }
 
     protected readonly TransactionFieldName = TransactionFieldName;

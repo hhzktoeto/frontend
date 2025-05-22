@@ -74,6 +74,7 @@
     <app-edit-transaction-modal
             [transaction]="openEditWindowSig()!"
             (save)="saveEdited($event)"
-            (cancel)="cancelEdit()">
+            (cancel)="cancelEdit()"
+            (delete)="delete($event)">
     </app-edit-transaction-modal>
 }

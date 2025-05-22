@@ -24,9 +24,6 @@
     --tw-numeric-fraction: ;
     --tw-ring-inset: ;
     --tw-ring-offset-width: 0px;
-    --tw-ring-offset-color: #fff;
-    --tw-ring-color: rgba(59, 130, 246, 0.5);
-    --tw-blur: ;
     --tw-brightness: ;
     --tw-contrast: ;
     --tw-grayscale: ;
@@ -53,9 +50,23 @@ button {
     cursor: pointer;
 }
 
-input, select, textarea {
-    &:focus {
-        outline: 2px solid var(--blue1);
-    }
+/* Убирает стрелочки на input с типом number*/
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Для Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Убирает стрелочку у datalist */
+input[list]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
 }
 
