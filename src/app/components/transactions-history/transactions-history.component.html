@@ -2,11 +2,11 @@
     <h2 class="text-xl text-light-1 cursor-default">История транзакций</h2>
     <div class="flex gap-2">
         <button class="flex items-center px-3 py-1 gap-1 rounded-lg text-sm text-dark-1 bg-light-1 hover:bg-blue-2 transition-color duration-200">
-            <span class="material-symbols-outlined text-sm">filter_alt</span>
+            <span class="fonts-symbols text-sm">filter_alt</span>
             Фильтр
         </button>
         <div class="relative flex px-3 py-1 gap-1 items-center rounded-lg bg-light-1">
-            <span class="material-symbols-outlined text-sm text-dark-1">search</span>
+            <span class="fonts-symbols text-sm text-dark-1">search</span>
             <input
                     class="bg-transparent text-sm outline-none text-dark-1"
                     placeholder="Поиск..."
@@ -23,7 +23,7 @@
                 @if (!(field === TransactionFieldName.DESCRIPTION) && !(field === TransactionFieldName.TYPE)) {
                     <th class="px-6 py-0.5" (click)="toggleSorting(field)">
                         <span class="cursor-pointer">{{ field }}
-                            <span class="material-symbols-outlined text-xs">
+                            <span class="fonts-symbols text-xs">
                                 @if (sortingSig().sortingBy === field) {
                                     {{ sortingSig().direction === 'ASC' ? 'arrow_drop_up' : 'arrow_drop_down' }}
                                 } @else {
@@ -54,11 +54,11 @@
                             <div class="absolute right-1 top-1/4 flex gap-4">
                                 <button (click)="openEditWindow(transaction)"
                                         class="text-yellow transition-opacity duration-200">
-                                    <span class="material-symbols-outlined">edit</span>
+                                    <span class="fonts-symbols">edit</span>
                                 </button>
                                 <button (click)="delete(transaction.id)"
                                         class="text-red transition-opacity duration-200">
-                                    <span class="material-symbols-outlined">delete</span>
+                                    <span class="fonts-symbols">delete</span>
                                 </button>
                             </div>
                         }
