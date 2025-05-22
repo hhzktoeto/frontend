@@ -8,19 +8,21 @@
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
                 <div>
-                    <label class="block text-xs text-light-2 mb-1">Тип*</label>
-                    <select formControlName="type"
-                            class="w-full p-2 outline-none text-dark-1 bg-light-1 cursor-pointer rounded-lg text-sm h-9">
+                    <label for="type-select" class="block text-sm text-light-2 mb-1">Тип*</label>
+                    <select id="type-select"
+                            formControlName="type"
+                            class="w-full p-2 outline-none text-dark-2 bg-light-1 cursor-pointer rounded-lg h-10">
                         <option>Расход</option>
                         <option>Доход</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-xs text-light-2 mb-1">Категория*</label>
-                    <input formControlName="category"
+                    <label for="category-input" class="block text-sm text-light-2 mb-1">Категория*</label>
+                    <input id="category-input"
+                           formControlName="category"
                            list="categories"
-                           class="w-full p-2 outline-none text-dark-1 bg-light-1 rounded-lg text-sm"/>
+                           class="w-full p-2 outline-none text-dark-2 bg-light-1 rounded-lg"/>
                     <datalist id="categories">
                         @for (category of categoriesSig(); track category.id) {
                             <option [value]="category.name"></option>
@@ -29,25 +31,28 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs text-light-2 mb-1">Сумма*</label>
-                    <input formControlName="amount"
+                    <label for="amount-input" class="block text-sm text-light-2 mb-1">Сумма*</label>
+                    <input id="amount-input"
+                           formControlName="amount"
                            type="number" step="0.01" min="0"
                            placeholder="0.00"
-                           class="w-full p-2 outline-none bg-light-1 text-dark-1 rounded-lg text-sm"/>
+                           class="w-full p-2 outline-none bg-light-1 text-dark-2 rounded-lg"/>
                 </div>
 
                 <div>
-                    <label class="block text-xs text-light-2 mb-1">Дата*</label>
-                    <input formControlName="date"
+                    <label for="date-input" class="block text-sm text-light-2 mb-1">Дата*</label>
+                    <input id="date-input"
+                           formControlName="date"
                            type="date"
-                           class="w-full p-2 outline-none bg-light-1 text-dark-1 rounded-lg text-sm"/>
+                           class="w-full p-2 outline-none bg-light-1 text-dark-2 rounded-lg"/>
                 </div>
 
                 <div class="md:col-span-4">
-                    <label class="block text-xs text-light-2 mb-1">Описание</label>
-                    <input formControlName="description"
+                    <label for="description-input" class="block text-sm text-light-2 mb-1">Описание</label>
+                    <input id="description-input"
+                           formControlName="description"
                            type="text"
-                           class="w-full p-2 outline-none bg-light-1 text-dark-1 rounded-lg text-sm"/>
+                           class="w-full p-2 outline-none bg-light-1 text-dark-2 rounded-lg"/>
                 </div>
             </div>
         </div>
@@ -60,7 +65,7 @@
             </div>
         }
         <button type="submit"
-                class="px-4 py-2 outline-none text-sm rounded-lg text-light-1 bg-blue-4 hover:bg-blue-2 text-light-3 transition-colors duration-200">
+                class="px-4 py-2 outline-none  rounded-lg text-light-1 bg-blue-4 hover:bg-blue-2 text-light-3 transition-colors duration-200">
 
             @if (isLoading()) {
                 <span>Добавление...</span>

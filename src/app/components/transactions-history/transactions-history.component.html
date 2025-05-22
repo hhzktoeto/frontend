@@ -21,9 +21,11 @@
         <tr class="text-center bg-light-1 text-xs text-dark-1 uppercase">
             @for (field of Object.values(TransactionFieldName); track field) {
                 @if (!(field === TransactionFieldName.DESCRIPTION) && !(field === TransactionFieldName.TYPE)) {
-                    <th class="px-6 py-0.5" (click)="toggleSorting(field)">
-                        <span class="relative cursor-pointer whitespace-nowrap">{{ field }}
-                            <span class="absolute fonts-symbols text-xs">
+                    <th class="px-6 py-0.5"
+                        (click)="toggleSorting(field)"
+                        (keydown.enter)="toggleSorting(field)">
+                        <span class="relative cursor-pointer text-sm whitespace-nowrap">{{ field }}
+                            <span class="absolute fonts-symbols text-sm">
                                 @if (sortingSig().sortingBy === field) {
                                     {{ sortingSig().direction === 'ASC' ? 'arrow_drop_up' : 'arrow_drop_down' }}
                                 }

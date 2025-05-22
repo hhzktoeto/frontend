@@ -1,6 +1,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div class="p-4 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:-translate-y-1 hover:cursor-pointer"
-         (click)="applyFilter(TransactionType.INCOME)">
+    <div class="p-4 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 cursor-pointer"
+         (click)="applyFilter(TransactionType.INCOME)"
+         (keydown.enter)="applyFilter(TransactionType.INCOME)">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl text-light-1">Доходы</h2>
             <span class="fonts-symbols text-green text-xl">trending_up</span>
@@ -9,8 +10,9 @@
             {{ incomes() | number: "1.2-2" }}₽
         </p>
     </div>
-    <div class="p-4 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:-translate-y-1 hover:cursor-pointer"
-         (click)="applyFilter(TransactionType.EXPENSE)">
+    <div class="p-4 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 cursor-pointer"
+         (click)="applyFilter(TransactionType.EXPENSE)"
+         (keydown.enter)="applyFilter(TransactionType.EXPENSE)">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl text-light-1">Расходы</h2>
             <span class="fonts-symbols text-red text-xl">trending_down</span>
@@ -19,8 +21,9 @@
             {{ expenses() | number: "1.2-2" }}₽
         </p>
     </div>
-    <div class="p-4 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:-translate-y-1 hover:cursor-pointer"
-         (click)="resetFilter()">
+    <div class="p-4 bg-dark-4 rounded-xl shadow-md transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 cursor-pointer"
+         (click)="resetFilter()"
+         (keydown.enter)="resetFilter()">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl text-light-1">Баланс</h2>
             <span class="fonts-symbols text-blue-2 text-xl">account_balance_wallet</span>
