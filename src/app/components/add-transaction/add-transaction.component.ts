@@ -9,7 +9,8 @@ import {StoreService} from "../../services/store.service";
     standalone: true,
     selector: 'app-add-transaction',
     imports: [CommonModule, ReactiveFormsModule],
-    templateUrl: './add-transaction.component.html'
+    templateUrl: './add-transaction.component.html',
+    styleUrl: './add-transaction.component.css'
 })
 
 export class AddTransactionComponent {

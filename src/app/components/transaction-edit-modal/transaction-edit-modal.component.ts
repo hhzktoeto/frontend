@@ -16,6 +16,7 @@ export class TransactionEditModalComponent {
     @Input() transaction!: Transaction;
     @Output() save = new EventEmitter<Transaction>();
     @Output() cancel = new EventEmitter<void>();
+    @Output() delete = new EventEmitter<number>();
 
     private readonly formBuilder = inject(FormBuilder);
     private readonly form = () => this.formBuilder.group({
@@ -37,6 +38,10 @@ export class TransactionEditModalComponent {
             ...this.transaction,
             ...this.form().getRawValue()
         } as Transaction);
+    }
+
+    onDelete() {
+        this.delete.emit(this.transaction.id)
     }
 
     onCancel() {
