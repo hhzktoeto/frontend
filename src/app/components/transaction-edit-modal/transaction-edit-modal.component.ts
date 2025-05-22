@@ -10,8 +10,7 @@ import {DatePipe} from "@angular/common";
     imports: [
         FormsModule,
         DatePipe
-    ],
-    styleUrls: ['./transaction-edit-modal.component.css']
+    ]
 })
 export class TransactionEditModalComponent {
     @Input() transaction!: Transaction;

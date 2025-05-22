@@ -1,14 +1,14 @@
-<div class="p-4 border-b flex justify-between items-center">
+<div class="p-4 flex justify-between items-center">
     <h2 class="text-xl text-light-1 cursor-default">История транзакций</h2>
-    <div class="flex gap-2">
-        <button class="flex items-center px-3 py-1 gap-1 rounded-lg text-sm text-dark-1 bg-light-1 hover:bg-blue-2 transition-color duration-200">
-            <span class="fonts-symbols text-sm">filter_alt</span>
+    <div class="flex gap-2 whitespace-nowrap">
+        <button class="flex items-center px-2 py-1 gap-1 rounded-lg text-sm text-dark-1 bg-light-1 hover:bg-blue-2 transition-color duration-200">
+            <span class="fonts-symbols text-lg">filter_alt</span>
             Фильтр
         </button>
-        <div class="relative flex px-3 py-1 gap-1 items-center rounded-lg bg-light-1">
-            <span class="fonts-symbols text-sm text-dark-1">search</span>
+        <div class="relative w-32 min-w-20 flex px-3 py-1 gap-1 items-center rounded-lg bg-light-1">
+            <span class="fonts-symbols text-sm text-dark-1 cursor-default">search</span>
             <input
-                    class="bg-transparent text-sm outline-none text-dark-1"
+                    class="bg-transparent text-sm outline-none text-dark-1 w-fit"
                     placeholder="Поиск..."
             />
         </div>
@@ -22,12 +22,10 @@
             @for (field of Object.values(TransactionFieldName); track field) {
                 @if (!(field === TransactionFieldName.DESCRIPTION) && !(field === TransactionFieldName.TYPE)) {
                     <th class="px-6 py-0.5" (click)="toggleSorting(field)">
-                        <span class="cursor-pointer">{{ field }}
-                            <span class="fonts-symbols text-xs">
+                        <span class="relative cursor-pointer whitespace-nowrap">{{ field }}
+                            <span class="absolute fonts-symbols text-xs">
                                 @if (sortingSig().sortingBy === field) {
                                     {{ sortingSig().direction === 'ASC' ? 'arrow_drop_up' : 'arrow_drop_down' }}
-                                } @else {
-                                    {{ "  " }}
                                 }
                             </span>
                         </span>
@@ -54,11 +52,11 @@
                             <div class="absolute right-3 bottom-1.5 flex gap-4">
                                 <button (click)="openEditWindow(transaction)"
                                         class="text-yellow transition-opacity duration-200">
-                                    <span class="fonts-symbols">edit</span>
+                                    <span class="fonts-symbols text-xl">edit</span>
                                 </button>
                                 <button (click)="delete(transaction.id)"
                                         class="text-red transition-opacity duration-200">
-                                    <span class="fonts-symbols">delete</span>
+                                    <span class="fonts-symbols text-xl">delete</span>
                                 </button>
                             </div>
                         }
