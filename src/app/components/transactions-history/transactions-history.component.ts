@@ -31,8 +31,7 @@ export class TransactionsHistoryComponent {
     })
 
     readonly hoveredIdSig = signal<number | null>(null);
-    readonly visibleDescriptionIdSig = signal<number | null>(null);
-    readonly startEditingSig = signal<Transaction | null>(null);
+    readonly openEditWindowSig = signal<Transaction | null>(null);
 
     readonly sortingSig = signal<SortingRules>({
         sortingBy: TransactionFieldName.DATE,
@@ -60,22 +59,18 @@ export class TransactionsHistoryComponent {
         })
     }
 
-    toggleDescription(id: number): void {
-        this.visibleDescriptionIdSig.update(current => current === id ? null : id);
-    }
-
     openEditWindow(transaction: Transaction): void {
         console.log("Open edit window:", transaction);
-        this.startEditingSig.set(transaction);
+        this.openEditWindowSig.set(transaction);
     }
 
     cancelEdit(): void {
-        this.startEditingSig.set(null);
+        this.openEditWindowSig.set(null);
     }
 
     async saveEdited(transaction: Transaction): Promise<void> {
         await this.storeService.updateTransaction(transaction);
-        this.startEditingSig.set(null);
+        this.openEditWindowSig.set(null);
     }
 
     async delete(id: number): Promise<void> {
