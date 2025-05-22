@@ -8,7 +8,7 @@
 
         <form class="space-y-6">
             <div>
-                <select class="w-full bg-dark-4 text-light-1 p-2 rounded-lg h-10"
+                <select class="w-full bg-light-1 text-dark-2 p-2 rounded-lg h-10"
                         [(ngModel)]="transaction.type" name="type">
                     <option value="EXPENSE">Расход</option>
                     <option value="INCOME">Доход</option>
@@ -16,24 +16,24 @@
             </div>
 
             <div>
-                <input class="w-full bg-dark-4 text-light-1 p-2 rounded-lg"
+                <input class="w-full bg-light-1 text-dark-2 p-2 rounded-lg"
                        [(ngModel)]="transaction.category" name="category">
             </div>
 
             <div>
-                <input type="date" class="w-full bg-dark-4 text-light-1 p-2 rounded-lg"
+                <input type="date" class="w-full bg-light-1 text-dark-2 p-2 rounded-lg"
                        [ngModel]="transaction.date | date:'yyyy-MM-dd'"
                        (ngModelChange)="transaction.date = $event" name="date">
             </div>
 
             <div>
-                <input type="number" class="w-full bg-dark-4 text-light-1 p-2 rounded-lg fonts-monospace"
+                <input type="number" class="w-full bg-light-1 text-dark-2 p-2 rounded-lg"
                        [(ngModel)]="transaction.amount" name="amount">
             </div>
 
             <div>
                 <label class="text-xs text-light-2">Описание
-                    <textarea class="w-full bg-dark-4 text-light-1 p-2 rounded-lg min-h-[60px]"
+                    <textarea class="w-full bg-light-1 text-dark-2 p-2 rounded-lg min-h-[60px]"
                               [(ngModel)]="transaction.description" name="description"></textarea>
                 </label>
             </div>

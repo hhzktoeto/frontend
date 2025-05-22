@@ -50,12 +50,24 @@ button {
     cursor: pointer;
 }
 
+/* Выровнять начало текста в разных инпутах (эт пиздец)*/
+select {
+    padding-left: 9px;
+}
+input {
+    padding-left: 14px;
+}
+input[type="date"] {
+    padding-left: 13px;
+}
+
 /* Убирает стрелочки на input с типом number*/
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 /* Для Firefox */
 input[type="number"] {
     -moz-appearance: textfield;
