@@ -1,18 +1,25 @@
 :root {
-    --font-open-sans: 'Open Sans';
     --font-oswald: 'Oswald';
-    --font-jetbrains: 'Jetbrains Mono'
+    --font-jetbrains: 'Jetbrains Mono';
+    --font-symbols: 'Material Symbols Outlined';
 }
 
 @font-face {
     font-family: "JetBrains Mono";
-    src: url(/JetBrainsMono-Medium.woff2) format('woff2');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
+    src: url(/fonts/JetBrainsMono-Medium.woff2) format('woff2');
 }
 
-.fonts-sans {
+@font-face {
+    font-family: "Material Symbols Outlined";
+    font-style: normal;
+    font-weight: 100 700;
+    src: url(/fonts/Material-Symbols.woff2) format('woff2');
+}
+
+.fonts-oswald {
     font-family: var(--font-oswald),
     ui-sans-serif,
     system-ui,
@@ -32,4 +39,20 @@
     Segoe UI Emoji,
     Segoe UI Symbol,
     Noto Color Emoji;
+}
+
+.fonts-symbols {
+    font-family: var(--font-symbols);
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
 }
