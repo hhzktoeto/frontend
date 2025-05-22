@@ -38,7 +38,9 @@
         </thead>
         <tbody>
             @for (transaction of transactions(); track transaction.id) {
-                <tr (dblclick)="openEditWindow(transaction)"
+                <tr (click)="window.innerWidth < 1024 ? openEditWindow(transaction) : null"
+                    (dblclick)="window.innerWidth >= 1024 ? openEditWindow(transaction) : null"
+                    (keydown.enter)="openEditWindow(transaction)"
                     (mouseenter)="hoveredIdSig.set(transaction.id)"
                     (mouseleave)="hoveredIdSig.set(null)"
                     class="text-center hover:bg-dark-3 transition-colors duration-150">
@@ -51,7 +53,7 @@
                     <td class="p-3 py-1 mt-2 relative overflow-hidden whitespace-nowrap fonts-monospace cursor-default {{ transaction.type === 'EXPENSE' ? 'text-red' : 'text-green'}}">
                         {{ transaction.amount.toFixed(2) }}₽
                         @if (hoveredIdSig() === transaction.id) {
-                            <div class="absolute right-3 bottom-1.5 flex gap-4">
+                            <div class="hidden lg:flex absolute right-3 bottom-1.5 gap-4">
                                 <button (click)="openEditWindow(transaction)"
                                         class="text-yellow transition-opacity duration-200">
                                     <span class="fonts-symbols text-xl">edit</span>
