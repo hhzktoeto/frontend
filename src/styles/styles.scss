@@ -1,18 +1,14 @@
 @use '@angular/material' as mat;
-@use "tailwindcss";
-@use "base/base";
-@use "utils/colors";
-@use "utils/backgrounds";
+@use "themes/nord-dark/colors";
+@use "themes/nord-dark/backgrounds";
+@use "themes/nord-dark/texts";
+@use "utils/reset";
 @use "utils/fonts";
-@use "utils/texts";
-@use "utils/effects";
-
-@import url(https://fonts.googleapis.com/css2?family=Oswald&display=swap);
 
 html {
   @include mat.theme((
     color: (
-      theme-type: light,
+      theme-type: light, /* light / dark / color-scheme */
       primary: mat.$azure-palette,
       tertiary: mat.$blue-palette,
     ),
