@@ -6,27 +6,41 @@
             </button>
         </div>
 
-        <form class="space-y-4">
-            <select class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none shadow-md shadow-gray-800"
-                    [(ngModel)]="transaction.type" name="type">
-                <option value="EXPENSE">Расход</option>
-                <option value="INCOME">Доход</option>
-            </select>
+        <form>
+            <mat-form-field class="w-full">
+                <mat-label>Тип</mat-label>
+                <mat-select name="type"
+                            [(ngModel)]="transaction.type">
+                    <mat-option [value]="TransactionType.EXPENSE">Расход</mat-option>
+                    <mat-option [value]="TransactionType.INCOME">Доход</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-            <input class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none shadow-md shadow-gray-800"
-                   [(ngModel)]="transaction.category" name="category">
+            <mat-form-field class="w-full">
+                <mat-label>Категория</mat-label>
+                <input matInput name="category"
+                       [(ngModel)]="transaction.category">
+            </mat-form-field>
 
-            <input type="date" class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none shadow-md shadow-gray-800"
-                   [ngModel]="transaction.date | date:'yyyy-MM-dd'"
-                   (ngModelChange)="transaction.date = $event" name="date">
+            <mat-form-field class="w-full">
+                <mat-label>Дата</mat-label>
+                <input matInput name="date"
+                       [ngModel]="transaction.date | date: 'dd.MM.yyyy'"
+                       (ngModelChange)="transaction.date = $event">
+            </mat-form-field>
 
-            <input type="number" class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none shadow-md shadow-gray-800"
-                   [(ngModel)]="transaction.amount" name="amount">
+            <mat-form-field class="w-full">
+                <mat-label>Сумма</mat-label>
+                <input matInput type="number" name="amount" min="0"
+                       [(ngModel)]="transaction.amount">
+            </mat-form-field>
 
-            <label class="text-xs text-light-2">Описание
-                <textarea class="w-full bg-light-1 text-dark-2 p-2 rounded-lg min-h-[60px] outline-none shadow-md shadow-gray-750"
-                          [(ngModel)]="transaction.description" name="description"></textarea>
-            </label>
+            <mat-form-field class="w-full">
+                <mat-label>Описание</mat-label>
+                <textarea matInput name="description"
+                          [(ngModel)]="transaction.description">
+                </textarea>
+            </mat-form-field>
         </form>
         <div class="flex justify-between mt-6">
             <button (click)="onDelete()"

@@ -33,7 +33,7 @@
               }
             ],
             "styles": [
-              "src/styles/main.css"
+              "src/styles/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

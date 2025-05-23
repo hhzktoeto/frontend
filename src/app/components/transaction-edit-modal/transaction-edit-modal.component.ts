@@ -2,6 +2,9 @@ import {Component, EventEmitter, HostListener, inject, Input, Output} from '@ang
 import {Transaction} from "../../types/transaction";
 import {FormBuilder, FormsModule, Validators} from "@angular/forms";
 import {DatePipe} from "@angular/common";
+import {MatFormField, MatLabel, MatOption, MatSelect} from "@angular/material/select";
+import {TransactionType} from "../../constants/transaction-type";
+import {MatInput} from "@angular/material/input";
 
 @Component({
     standalone: true,
@@ -9,7 +12,12 @@ import {DatePipe} from "@angular/common";
     templateUrl: './transaction-edit-modal.component.html',
     imports: [
         FormsModule,
-        DatePipe
+        DatePipe,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        MatOption,
+        MatInput
     ]
 })
 export class TransactionEditModalComponent {
@@ -19,14 +27,14 @@ export class TransactionEditModalComponent {
     @Output() delete = new EventEmitter<number>();
 
     private readonly formBuilder = inject(FormBuilder);
-    private readonly form = () => this.formBuilder.group({
+
+    readonly form = () => this.formBuilder.group({
         type: [this.transaction.type, Validators.required],
         category: [this.transaction.category, Validators.required],
         amount: [this.transaction.amount, Validators.required],
         date: [this.transaction.date, Validators.required],
         description: this.transaction.description
     });
-
 
     onSave() {
         if (this.form().invalid) {
@@ -58,4 +66,6 @@ export class TransactionEditModalComponent {
         }
         this.onCancel();
     }
+
+    protected readonly TransactionType = TransactionType;
 }

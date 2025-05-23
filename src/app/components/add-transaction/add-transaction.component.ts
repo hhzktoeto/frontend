@@ -4,13 +4,29 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TransactionType} from '../../constants/transaction-type';
 import {StoreService} from "../../services/store.service";
+import {MatFormField, MatLabel, MatOption, MatSelect, MatSuffix} from "@angular/material/select";
+import {MatInput} from "@angular/material/input";
+import {MatDatepickerInput, MatDatepickerModule, MatDatepickerToggle} from "@angular/material/datepicker";
+import {provideNativeDateAdapter} from "@angular/material/core";
 
 @Component({
     standalone: true,
     selector: 'app-add-transaction',
-    imports: [CommonModule, ReactiveFormsModule],
-    templateUrl: './add-transaction.component.html',
-    styleUrl: './add-transaction.component.css'
+    providers: [provideNativeDateAdapter()],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatSelect,
+        MatOption,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatSuffix,
+        MatDatepickerModule,
+        MatDatepickerToggle,
+        MatDatepickerInput
+    ],
+    templateUrl: './add-transaction.component.html'
 })
 
 export class AddTransactionComponent {
@@ -18,12 +34,12 @@ export class AddTransactionComponent {
     private readonly formBuilder = inject(FormBuilder);
 
     readonly form = this.formBuilder.group({
-        type: ["Расход", Validators.required],
+        type: this.formBuilder.nonNullable.control(TransactionType.EXPENSE, Validators.required),
         category: ["", Validators.required],
         amount: [null, Validators.required],
         date: [new Date().toISOString().split("T")[0], Validators.required],
         description: [""]
-    })
+    });
 
     categoriesSig = this.storeService.categoriesSig
     errorMessage = signal<string | null>(null);
@@ -39,12 +55,9 @@ export class AddTransactionComponent {
         this.isLoading.set(true);
         try {
             const formValues = this.form.value;
-            const type = formValues.type === 'Расход'
-                ? TransactionType.EXPENSE
-                : TransactionType.INCOME;
 
             const dto: TransactionDTO = {
-                type,
+                type: formValues.type!,
                 category: formValues.category!,
                 amount: formValues.amount!,
                 date: formValues.date!,
@@ -59,4 +72,7 @@ export class AddTransactionComponent {
             this.isLoading.set(false);
         }
     }
+
+    protected readonly TransactionType = TransactionType;
+    protected readonly Object = Object;
 }

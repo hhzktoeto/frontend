@@ -7,53 +7,46 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
-                <div>
-                    <label for="type-select" class="block text-sm text-light-2 mb-1">Тип*</label>
-                    <select id="type-select"
-                            formControlName="type"
-                            class="w-full p-2 outline-none text-dark-2 bg-light-1 cursor-pointer rounded-lg h-10">
-                        <option>Расход</option>
-                        <option>Доход</option>
-                    </select>
-                </div>
+                <mat-form-field>
+                    <mat-label>Тип</mat-label>
+                    <mat-select [formControl]="form.controls.type">
+                        <mat-option [value]="TransactionType.EXPENSE">Расход</mat-option>
+                        <mat-option [value]="TransactionType.INCOME">Доход</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-                <div>
-                    <label for="category-input" class="block text-sm text-light-2 mb-1">Категория*</label>
-                    <input id="category-input"
-                           formControlName="category"
-                           list="categories"
-                           class="w-full p-2 outline-none text-dark-2 bg-light-1 rounded-lg"/>
+                <mat-form-field>
+                    <mat-label>Категория</mat-label>
+                    <input matInput list="categories"
+                           [formControl]="form.controls.category">
                     <datalist id="categories">
                         @for (category of categoriesSig(); track category.id) {
                             <option [value]="category.name"></option>
                         }
                     </datalist>
-                </div>
+                </mat-form-field>
 
-                <div>
-                    <label for="amount-input" class="block text-sm text-light-2 mb-1">Сумма*</label>
-                    <input id="amount-input"
-                           formControlName="amount"
-                           type="number" step="0.01" min="0"
-                           placeholder="0.00"
-                           class="w-full p-2 outline-none bg-light-1 text-dark-2 rounded-lg"/>
-                </div>
+                <mat-form-field>
+                    <mat-label>Сумма</mat-label>
+                    <input matInput
+                           [formControl]="form.controls.amount"
+                           type="number" min="0" placeholder="0.00">
+                </mat-form-field>
 
-                <div>
-                    <label for="date-input" class="block text-sm text-light-2 mb-1">Дата*</label>
-                    <input id="date-input"
-                           formControlName="date"
-                           type="date"
-                           class="w-full p-2 outline-none bg-light-1 text-dark-2 rounded-lg"/>
-                </div>
+                <mat-form-field>
+                    <mat-label>Дата</mat-label>
+                    <input matInput
+                           [matDatepicker]="picker"
+                           [formControl]="form.controls.date">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
 
-                <div class="md:col-span-4">
-                    <label for="description-input" class="block text-sm text-light-2 mb-1">Описание</label>
-                    <input id="description-input"
-                           formControlName="description"
-                           type="text"
-                           class="w-full p-2 outline-none bg-light-1 text-dark-2 rounded-lg"/>
-                </div>
+                <mat-form-field class="col-span-4">
+                    <mat-label>Описание</mat-label>
+                    <input matInput
+                           [formControl]="form.controls.description">
+                </mat-form-field>
             </div>
         </div>
     </div>
@@ -65,8 +58,7 @@
             </div>
         }
         <button type="submit"
-                class="px-4 py-2 outline-none  rounded-lg text-light-1 bg-blue-4 hover:bg-blue-2 text-light-3 transition-colors duration-200">
-
+                class="px-5 py-3 text-lg outline-none rounded-lg text-light-1 bg-blue-4 hover:bg-blue-2 text-light-3 transition-colors duration-200">
             @if (isLoading()) {
                 <span>Добавление...</span>
             } @else {
