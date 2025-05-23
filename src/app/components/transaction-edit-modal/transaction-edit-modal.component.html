@@ -1,52 +1,42 @@
 <div class="fixed flex p-4 items-center justify-center inset-0">
     <div class="bg-dark-2 rounded-lg py-3 px-6 w-xs sm:w-sm shadow-md">
-        <div class="flex justify-end mb-2">
+        <div class="flex justify-end mb-6">
             <button (click)="onCancel()" class="text-red">
                 <span class="fonts-symbols text-2xl">close</span>
             </button>
         </div>
 
         <form class="space-y-4">
-            <div>
-                <select class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none"
-                        [(ngModel)]="transaction.type" name="type">
-                    <option value="EXPENSE">Расход</option>
-                    <option value="INCOME">Доход</option>
-                </select>
-            </div>
+            <select class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none shadow-md shadow-gray-800"
+                    [(ngModel)]="transaction.type" name="type">
+                <option value="EXPENSE">Расход</option>
+                <option value="INCOME">Доход</option>
+            </select>
 
-            <div>
-                <input class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none"
-                       [(ngModel)]="transaction.category" name="category">
-            </div>
+            <input class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none shadow-md shadow-gray-800"
+                   [(ngModel)]="transaction.category" name="category">
 
-            <div>
-                <input type="date" class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none"
-                       [ngModel]="transaction.date | date:'yyyy-MM-dd'"
-                       (ngModelChange)="transaction.date = $event" name="date">
-            </div>
+            <input type="date" class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none shadow-md shadow-gray-800"
+                   [ngModel]="transaction.date | date:'yyyy-MM-dd'"
+                   (ngModelChange)="transaction.date = $event" name="date">
 
-            <div>
-                <input type="number" class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none"
-                       [(ngModel)]="transaction.amount" name="amount">
-            </div>
+            <input type="number" class="w-full bg-light-1 text-dark-2 p-2 rounded-lg outline-none shadow-md shadow-gray-800"
+                   [(ngModel)]="transaction.amount" name="amount">
 
-            <div>
-                <label class="text-xs text-light-2">Описание
-                    <textarea class="w-full bg-light-1 text-dark-2 p-2 rounded-lg min-h-[60px] outline-none"
-                              [(ngModel)]="transaction.description" name="description"></textarea>
-                </label>
-            </div>
+            <label class="text-xs text-light-2">Описание
+                <textarea class="w-full bg-light-1 text-dark-2 p-2 rounded-lg min-h-[60px] outline-none shadow-md shadow-gray-750"
+                          [(ngModel)]="transaction.description" name="description"></textarea>
+            </label>
         </form>
-            <div class="flex justify-between mt-6">
-                <button (click)="onDelete()"
-                        class="text-red">
-                    <span class="fonts-symbols text-4xl">delete</span>
-                </button>
-                <button (click)="onSave()"
-                        class="text-green">
-                    <span class="fonts-symbols text-4xl">check</span>
-                </button>
-            </div>
+        <div class="flex justify-between mt-6">
+            <button (click)="onDelete()"
+                    class="text-red">
+                <span class="fonts-symbols text-4xl">delete</span>
+            </button>
+            <button (click)="onSave()"
+                    class="text-green">
+                <span class="fonts-symbols text-4xl">check</span>
+            </button>
+        </div>
     </div>
 </div>
