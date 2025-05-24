@@ -1,9 +1,10 @@
 @import url(https://fonts.googleapis.com/css2?family=Oswald&display=swap);
 
 @import "tailwindcss";
+@import "primeicons/primeicons.css";
 @import "./base/base.css";
 @import "./utils/colors.css";
 @import "./utils/backgrounds.css";
 @import "./utils/fonts.css";
 @import "./utils/texts.css";
-@import "./utils/effects.css";
+@plugin "tailwindcss-primeui";

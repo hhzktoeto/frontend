@@ -2,31 +2,29 @@
     <app-header></app-header>
 
     <!-- Табы -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 space-y-2">
-        <div class="flex flex-grow justify-start space-x-1">
-            <button class="w-full py-2 rounded-xl text-sm font-medium"
-                    *ngFor="let tab of Object.values(TabName)"
-                    [ngClass]="activeTab === tab
-                    ? 'bg-blue-4 text-light-3'
-                    : 'bg-light-1 text-dark-1 hover:bg-blue-2 transition-colors duration-200'
-                    "
-                    (click)="setTab(tab)">
-                {{ tab }}
-            </button>
+    <div class="grid grid-cols-2 mb-2">
+        <div class="space-x-2">
+            @for (tab of tabs; track tab.name) {
+                <p-button [icon]="tab.icon"
+                          [label]="showLabels ? tab.name : ''"
+                          (click)="activeTab = tab"
+                          [severity]="activeTab === tab ? 'primary': 'secondary'"
+                          [rounded]="true"
+                />
+            }
         </div>
 
         <div class="flex flex-grow justify-end">
-            <select class="w-full sm:w-fit mb-2 sm:mb-0 px-2 outline-none rounded-xl text-sm text-dark-1 bg-light-1 cursor-pointer h-9"
-                    #selectElement (change)="setShowPeriod(selectElement.value)">
-                <option *ngFor="let option of Object.values(ShowPeriod)" [value]="option">
-                    {{ option }}
-                </option>
-            </select>
+            <p-select
+                      [options]="Object.values(ShowPeriod)"
+                      (onChange)="setShowPeriod($event.value)"
+            >
+            </p-select>
         </div>
     </div>
 
-    <!-- Главная -->
-    <div [hidden]="activeTab !== 'Главная'">
+    <ng-container *ngIf="activeTab?.name === TabName.MAIN"
+                  class="space-y-4">
         <div class="p-4 bg-dark-4 shadow-md rounded-xl mb-8">
             <app-add-transaction/>
         </div>
@@ -38,10 +36,9 @@
         <div class="bg-dark-4 rounded-xl shadow-md overflow-hidden">
             <app-transactions-history/>
         </div>
-    </div>
+    </ng-container>
 
-    <!-- Статистика -->
-    <div [hidden]="activeTab !== 'Статистика'">
+    <ng-container *ngIf="activeTab?.name === TabName.STATS">
         <app-categories-charts/>
-    </div>
+    </ng-container>
 </div>

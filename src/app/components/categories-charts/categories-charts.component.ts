@@ -3,12 +3,11 @@ import {StoreService} from "../../services/store.service";
 import {ChartData, ChartEvent, ChartOptions, LegendElement, LegendItem} from "chart.js";
 import {ColorsUtils} from "../../utils/colors.utils";
 import {CommonModule} from "@angular/common";
-import {BaseChartDirective} from "ng2-charts";
 
 @Component({
     standalone: true,
     selector: 'app-categories-charts',
-    imports: [CommonModule, BaseChartDirective],
+    imports: [CommonModule],
     templateUrl: './categories-charts.component.html'
 })
 export class CategoriesChartsComponent {

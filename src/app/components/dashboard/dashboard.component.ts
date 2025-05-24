@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, HostListener, inject} from '@angular/core';
 import {TabName} from '../../constants/tab-name';
 import {CommonModule} from '@angular/common';
 import {HeaderComponent} from '../header/header.component';
@@ -8,6 +8,10 @@ import {TransactionsHistoryComponent} from "../transactions-history/transactions
 import {StoreService} from "../../services/store.service";
 import {CategoriesChartsComponent} from "../categories-charts/categories-charts.component";
 import {SummaryCardsComponent} from "../summary-cards/summary-cards.component";
+import {DashboardTab} from "../../types/dashboard-tab";
+import {Select} from "primeng/select";
+import {FormsModule} from "@angular/forms";
+import {Button} from "primeng/button";
 
 @Component({
     standalone: true,
@@ -18,24 +22,34 @@ import {SummaryCardsComponent} from "../summary-cards/summary-cards.component";
         AddTransactionComponent,
         TransactionsHistoryComponent,
         CategoriesChartsComponent,
-        SummaryCardsComponent
+        SummaryCardsComponent,
+        Select,
+        FormsModule,
+        Button
     ],
     templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent {
     private readonly storeService = inject(StoreService);
 
-    activeTab = TabName.MAIN;
-
-    setTab(tab: string): void {
-        this.activeTab = tab as TabName;
-    }
+    tabs: DashboardTab[] = [
+        {name: TabName.MAIN, icon: "pi pi-home"},
+        {name: TabName.STATS, icon: "pi pi-chart-bar"}
+    ]
+    activeTab = this.tabs[0];
+    showLabels = window.innerWidth >= 640;
 
     setShowPeriod(period: string): void {
         this.storeService.setShowPeriodFilter(period as ShowPeriod);
     }
 
+    @HostListener('window:resize')
+    onResize() {
+        this.showLabels = window.innerWidth >= 640;
+    }
+
     protected readonly TabName = TabName;
-    protected readonly ShowPeriod = ShowPeriod;
     protected readonly Object = Object;
+    protected readonly ShowPeriod = ShowPeriod;
+    protected readonly window = window;
 }
